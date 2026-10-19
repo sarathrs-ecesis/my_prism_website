@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Dark base background: Ground #13131D / oklch(0.19 0.02 285) -->
+    <style>
+      .bg-tile { fill: #13131d; fill: oklch(0.19 0.02 285); }
+      .ring-track { stroke: #2F2F3A; stroke: oklch(0.31 0.02 285); }
+      .white-beam { stroke: #F3F4FC; stroke: oklch(0.97 0.01 280); }
+    </style>
+
+    <!-- Spectrum Ring Conic Gradient -->
+    <!-- PDF verbatim: from 130deg, Red 0deg, Amber 55deg, Green 110deg, Blue 165deg, Violet 225deg, transparent 248deg -->
+    <radialGradient id="ringTrackFade">
+      <stop offset="0%" stop-color="#2F2F3A" stop-color-opacity="1" />
+      <stop offset="100%" stop-color="#2F2F3A" stop-color-opacity="1" />
+    </radialGradient>
+
+    <!-- Prism Gradient: linear-gradient(160deg, oklch(0.97 0.02 320), oklch(0.86 0.06 255)) -->
+    <linearGradient id="prismGradient" x1="0%" y1="0%" x2="34%" y2="94%">
+      <stop offset="0%" stop-color="#FBF1FE" style="stop-color: oklch(0.97 0.02 320);" />
+      <stop offset="100%" stop-color="#B7D4F9" style="stop-color: oklch(0.86 0.06 255);" />
+    </linearGradient>
+
+    <!-- Mask for ring thickness: Ring is 76% of width, stroke is 12.5% of ring (outer r = 194.56, inner r = 145.92) -->
+    <mask id="ringMask">
+      <rect width="512" height="512" fill="black" />
+      <circle cx="256" cy="256" r="170.24" stroke="white" stroke-width="48.64" fill="none" />
+    </mask>
+
+    <!-- Conic gradient mesh/raster-free angular path representation -->
+    <!-- Base track runs the full 360 circle -->
+  </defs>
+
+  <!-- App Tile Background (Corner radius: 22.6% of 512 = 115.7px) -->
+  <rect class="bg-tile" width="512" height="512" rx="115.7" ry="115.7" />
+
+  <!-- Ring Group -->
+  <!-- Ring outer = 389px (76% of 512), stroke = 48.6px (12.5% of ring diameter) -->
+  <g id="ring" mask="url(#ringMask)">
+    <!-- Dark Ring Track (the remaining 112 degrees of unlit track) -->
+    <circle cx="256" cy="256" r="170.24" stroke="#2F2F3A" stroke-width="52" fill="none" />
+
+    <!-- Spectrum Arc using conical sectors matching verbatim PDF stops -->
+    <!-- Arc starts at 130deg and runs 248deg clockwise (stops: 0° Red, 55° Amber, 110° Green, 165° Blue, 225° Violet) -->
+    <g transform="translate(256, 256) rotate(130)">
+      <!-- Segment 1: Red to Amber (0° to 55°) -->
+      <path d="M 0 0 L 250 0 A 250 250 0 0 1 143.4 204.8 Z" fill="#FFC1B9" style="fill: oklch(0.89 0.1 25);" />
+      <!-- Segment 2: Amber to Green (55° to 110°) -->
+      <path d="M 0 0 L 143.4 204.8 A 250 250 0 0 1 -85.5 234.9 Z" fill="#FFDA94" style="fill: oklch(0.91 0.1 80);" />
+      <!-- Segment 3: Green to Blue (110° to 165°) -->
+      <path d="M 0 0 L -85.5 234.9 A 250 250 0 0 1 -241.5 64.7 Z" fill="#A8EEB5" style="fill: oklch(0.89 0.1 150);" />
+      <!-- Segment 4: Blue to Violet (165° to 225°) -->
+      <path d="M 0 0 L -241.5 64.7 A 250 250 0 0 1 -176.8 -176.8 Z" fill="#84E9FF" style="fill: oklch(0.88 0.1 215);" />
+      <!-- Segment 5: Violet tail to 248° -->
+      <path d="M 0 0 L -176.8 -176.8 A 250 250 0 0 1 -93.6 -231.8 Z" fill="#E5CCFF" style="fill: oklch(0.89 0.1 300);" />
+    </g>
+  </g>
+
+  <!-- Incoming Pure White Light Beam (starts left edge, enters ring, touches left face of central prism) -->
+  <line class="white-beam" x1="16" y1="264" x2="200" y2="264" stroke-width="16" stroke-linecap="round" />
+
+  <!-- Center Prism (Equilateral Triangle with soft rounded tips and 160° linear gradient) -->
+  <polygon points="256,216 201,312 311,312"
+           fill="url(#prismGradient)"
+           stroke-linejoin="round"
+           stroke="url(#prismGradient)"
+           stroke-width="12" />
+</svg>

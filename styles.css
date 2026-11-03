@@ -2980,6 +2980,7 @@ h3 {
   border-radius: 9px;
   object-fit: contain;
   flex-shrink: 0;
+  background-color: #13131c;
 }
 
 .product-logo {

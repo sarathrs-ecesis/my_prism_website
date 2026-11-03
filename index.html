@@ -1,1050 +1,833 @@
 <!doctype html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#13131C" />
     <link rel="icon" href="favicon.png" type="image/png" />
-    <title>MyPrism 360</title>
-
-    <!-- Theme Detection (Immediate execution to prevent flash) -->
     <script>
       (function () {
-        const storedTheme = localStorage.getItem("theme");
-        if (storedTheme === "light") {
-          document.documentElement.classList.remove("dark");
-        } else if (storedTheme === "dark") {
-          document.documentElement.classList.add("dark");
-        } else if (
-          window.matchMedia &&
-          window.matchMedia("(prefers-color-scheme: light)").matches
-        ) {
-          document.documentElement.classList.remove("dark");
-        } else {
-          document.documentElement.classList.add("dark");
-        }
+        var saved = localStorage.getItem("prism-theme");
+        var theme = saved ? saved : "dark";
+        document.documentElement.setAttribute("data-theme", theme);
       })();
     </script>
-
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
+    <meta
+      name="description"
+      content="Bring your insurance policies together, understand the details, and keep track of renewal dates. MyPrism 360 is coming to Switzerland."
     />
-
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ["Inter", "sans-serif"],
-            },
-            colors: {
-              swiss: {
-                green: "#90EE90",
-                gray: "#DCD1CB",
-                dark: "#0A0D14",
-                surface: "#11151F",
-                card: "#161C28",
-                border: "#242D3D",
-              },
-            },
-            animation: {
-              "pulse-subtle":
-                "pulseSubtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-              float: "float 6s ease-in-out infinite",
-            },
-            keyframes: {
-              pulseSubtle: {
-                "0%, 100%": { opacity: "0.4" },
-                "50%": { opacity: "0.7" },
-              },
-              float: {
-                "0%, 100%": { transform: "translateY(0px)" },
-                "50%": { transform: "translateY(-6px)" },
-              },
-            },
-          },
-        },
-      };
-    </script>
-
-    <style>
-      /* Custom styling for glassmorphism and subtle grid lines */
-      .bg-grid-pattern {
-        background-size: 40px 40px;
-        background-image:
-          linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
-      }
-      .dark .bg-grid-pattern {
-        background-image:
-          linear-gradient(
-            to right,
-            rgba(255, 255, 255, 0.03) 1px,
-            transparent 1px
-          ),
-          linear-gradient(
-            to bottom,
-            rgba(255, 255, 255, 0.03) 1px,
-            transparent 1px
-          );
-      }
-      .glass-card {
-        background: rgba(255, 255, 255, 0.88);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(0, 0, 0, 0.08);
-        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
-      }
-      .dark .glass-card {
-        background: rgba(22, 28, 40, 0.7);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.07);
-        box-shadow: none;
-      }
-      .glass-card-hover {
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .glass-card-hover:hover {
-        border-color: rgba(0, 0, 0, 0.16);
-        transform: translateY(-2px);
-        box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.08);
-      }
-      .dark .glass-card-hover:hover {
-        border-color: rgba(255, 255, 255, 0.18);
-        transform: translateY(-2px);
-        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
-      }
-      .glow-radial {
-        background: radial-gradient(
-          circle at 50% 0%,
-          rgba(0, 0, 0, 0.03) 0%,
-          transparent 70%
-        );
-      }
-      .dark .glow-radial {
-        background: radial-gradient(
-          circle at 50% 0%,
-          rgba(255, 59, 48, 0.15) 0%,
-          rgba(59, 130, 246, 0.08) 35%,
-          transparent 70%
-        );
-      }
-    </style>
+    <meta
+      property="og:title"
+      content="MyPrism 360 — Your insurance. Finally clear."
+    />
+    <meta
+      property="og:description"
+      content="A clearer view of the insurance you already have. Launching in Switzerland."
+    />
+    <title>MyPrism 360 — Your insurance. Finally clear.</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="app.js"></script>
   </head>
-  <body
-    class="bg-[#F8FAFC] dark:bg-swiss-dark text-slate-800 dark:text-slate-100 font-sans antialiased selection:bg-slate-200 dark:selection:bg-swiss-gray/30 selection:text-slate-900 dark:selection:text-white relative overflow-x-hidden transition-colors duration-200"
-  >
-    <!-- Notification Toast (Feedback on waitlist signup) -->
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <div
       id="toast"
-      class="fixed top-6 right-6 z-50 transform translate-y-[-150%] opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 bg-emerald-900/90 dark:bg-emerald-950/90 text-emerald-100 dark:text-emerald-200 border border-emerald-500/40 px-5 py-3.5 rounded-2xl shadow-2xl backdrop-blur-md"
+      class="toast-notification translate-y-[-150%] opacity-0 toast-hidden"
+      role="status"
+      aria-live="polite"
     >
-      <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
-      <div>
-        <p class="text-sm font-semibold text-white">You're on the waitlist!</p>
-        <p class="text-xs text-emerald-300/80">
-          We'll send you one email when MyPrism 360 launches in Switzerland.
-        </p>
+      <div class="toast-icon" aria-hidden="true">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="4 10 8 14 16 6"></polyline>
+        </svg>
       </div>
+      <div class="toast-content">
+        <strong id="toast-title">You&apos;re on the waitlist!</strong>
+        <span id="toast-message">We&apos;ll notify you when MyPrism 360 launches.</span>
+      </div>
+      <button type="button" class="toast-close" id="toast-close" aria-label="Dismiss notification" onclick="hideToast()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
     </div>
-
-    <!-- HEADER / NAVIGATION -->
-    <header
-      class="sticky top-0 z-40 w-full backdrop-blur-xl bg-white/80 dark:bg-swiss-dark/80 border-b border-slate-200/80 dark:border-swiss-border/70 transition-colors"
-    >
-      <div
-        class="mx-auto px-4 sm:px-6 h-18 flex items-center justify-between py-4"
-      >
-        <!-- Logo -->
-        <a href="#" class="flex items-center gap-2.5 group">
-          <div
-            class="w-9 h-9 flex items-center justify-center transition-transform"
-          >
-            <div class="w-full h-full flex items-center justify-center">
-              <!-- Prism Icon -->
-              <img src="./logo.svg" alt="logo" class="size-20" />
-            </div>
-          </div>
-          <div class="flex items-baseline gap-1">
-            <span
-              class="text-xl font-bold tracking-tight text-slate-900 dark:text-white"
-              >MyPrism</span
-            >
-            <span
-              class="text-xs font-semibold p-0.5 rounded text-slate-500 dark:text-slate-300"
-              >360</span
-            >
-          </div>
-        </a>
-
-        <div class="flex items-center gap-x-4 sm:gap-x-6">
-          <!-- Desktop Nav Links -->
-          <nav
-            class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-slate-300"
-          >
-            <a
-              href="#how-it-works"
-              class="hover:text-slate-900 dark:hover:text-white transition-colors"
-              >How it works</a
-            >
-            <a
-              href="#what-it-does"
-              class="hover:text-slate-900 dark:hover:text-white transition-colors"
-              >What it does</a
-            >
-            <a
-              href="#faq"
-              class="hover:text-slate-900 dark:hover:text-white transition-colors"
-              >FAQ</a
-            >
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="#" class="brand" aria-label="MyPrism 360 home"
+          ><img
+            class="brand-logo"
+            src="logo-new.png"
+            alt=""
+            width="40"
+            height="40"
+          /><span>MyPrism<span class="brand-360">360</span></span></a
+        >
+        <div class="header-right">
+          <nav id="main-nav" aria-label="Main navigation">
+            <a href="#how-it-works">How it works</a>
+            <a href="#your-cover">What you can do</a>
+            <a href="#our-promise">Our promise</a>
+            <a href="#faq">FAQs</a>
+            <a href="#contact">Contact</a>
+            <a class="button button-small button-waitlist" href="#waitlist">
+              Join the waitlist
+            </a>
           </nav>
-
-          <!-- Right Header Controls: Theme Toggle & CTA -->
-          <div class="flex items-center gap-2.5 sm:gap-3">
-            <!-- Theme Toggle Button -->
+          <div class="header-controls">
             <button
+              class="theme-toggle"
               id="theme-toggle"
               type="button"
-              onclick="toggleTheme()"
-              aria-label="Toggle theme"
-              class="p-2 sm:px-2.5 sm:py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-700 dark:text-slate-300 transition-all active:scale-95 flex items-center gap-1.5 shadow-sm"
-              title="Toggle Light / Dark mode"
+              aria-label="Switch to light mode"
+              title="Switch to light mode"
             >
-              <!-- Sun Icon (visible in dark mode) -->
-              <svg
-                id="theme-toggle-light-icon"
-                xmlns="http://www.w3.org/2000/svg"
-                class="w-4 h-4 hidden dark:block"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <circle cx="12" cy="12" r="4" />
+              <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="4"></circle>
                 <path
-                  d="M12 2v2
-                    m0 16v2
-                    M4.93 4.93l1.42 1.42
-                    m11.3 11.3 1.42 1.42
-                    M2 12h2
-                    m16 0h2
-                    M4.93 19.07l1.42-1.42
-                    m11.3-11.3 1.42-1.42"
-                />
-              </svg>
-              <!-- Moon Icon (visible in light mode) -->
-              <svg
-                id="theme-toggle-dark-icon"
-                class="w-4 h-4 block dark:hidden"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                  d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41m14.14-14.14-1.41 1.41"
                 ></path>
               </svg>
+              <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+              </svg>
             </button>
-
-            <!-- Join Waitlist CTA -->
-            <a
-              href="#waitlist-section"
-              class="px-4 py-2 rounded-xl text-sm font-semibold bg-[linear-gradient(to_right,#FFDA94_0%,#F0D3C9_50%,#E5CCFF_100%)] text-black active:scale-95 transition shadow-sm flex items-center gap-1.5"
+            <button
+              class="menu-toggle"
+              aria-label="Open navigation"
+              aria-expanded="false"
+              aria-controls="main-nav"
             >
-              <span class="hidden md:block">Join the waitlist</span>
-              <span class="md:hidden">Join</span>
-              <i data-lucide="arrow-right" class="w-4 h-4"></i>
-            </a>
+              <span></span><span></span>
+            </button>
           </div>
         </div>
       </div>
     </header>
-
-    <main class="relative z-10">
-      <!-- HERO SECTION -->
-      <section class="py-6 sm:py-10 md:py-20 max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="flex flex-col items-center text-center">
-          <!-- Swiss Badge -->
-          <div
-            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-slate-200 dark:border-swiss-border bg-white dark:bg-swiss-surface/80 backdrop-blur-md mb-8 hover:border-slate-300 dark:hover:border-slate-600 transition-colors shadow-sm"
-          >
-            <span class="flex h-2 w-2 relative">
-              <span
-                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 dark:bg-swiss-green opacity-75"
-              ></span>
-              <span
-                class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 dark:bg-swiss-green"
-              ></span>
-            </span>
-            <span
-              class="text-xs font-medium text-slate-600 dark:text-slate-200"
-            >
-              Launching in Switzerland
-              <span class="text-slate-400 dark:text-slate-500 mx-1">—</span>
-              <span class="text-slate-900 dark:text-white font-semibold"
-                >Waitlist open</span
+    <main id="main">
+      <section class="hero">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <div class="container hero-layout">
+          <div class="hero-copy">
+            <h1>
+              Your insurance.<br /><span class="headline-accent"
+                >Finally clear.</span
               >
-            </span>
-          </div>
-
-          <!-- Headline -->
-          <h1
-            class="text-4xl sm:text-6xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white max-w-4xl leading-[1.08]"
-          >
-            Your insurance. Finally Clear.
-          </h1>
-
-          <!-- Subheadline -->
-          <p
-            class="mt-6 text-lg sm:text-xl text-slate-600 dark:text-slate-300/90 max-w-2xl font-normal leading-relaxed"
-          >
-            Bring your policies together, understand what they cover, and keep
-            track of renewal dates. MyPrism 360 helps you make sense of the
-            insurance you already have.
-          </p>
-
-          <!-- Waitlist Form Component -->
-          <div id="waitlist-hero" class="mt-9 w-full max-w-md">
-            <form
-              onsubmit="handleWaitlistSubmit(event, 'hero-email')"
-              class="relative flex flex-col sm:flex-row gap-2.5 p-1.5 rounded-2xl glass-card border border-slate-200/80 dark:border-white/10 shadow-xl"
-            >
-              <div class="relative flex-1">
+            </h1>
+            <p class="hero-description">
+              All your policies. Answers that make sense. A clearer picture of
+              the cover you already have.
+            </p>
+            <p class="hero-secondary">
+              Meet MyPrism 360—your space to organise insurance, understand the
+              details and keep track of what&apos;s next.
+            </p>
+            <div class="hero-actions">
+              <form
+                class="hero-waitlist-group"
+                id="hero-waitlist-form"
+                onsubmit="handleWaitlistSubmit(event, 'hero-email')"
+              >
                 <input
+                  type="email"
+                  class="waitlist-input"
                   id="hero-email"
                   name="email"
-                  type="email"
+                  placeholder="Enter your email address"
                   required
-                  placeholder="you@email.com"
-                  class="w-full px-3 py-3 bg-transparent rounded-xl text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-400 dark:focus:ring-swiss-gray/80 transition"
+                  aria-label="Email address to join the waitlist"
+                  autocomplete="email"
                 />
+                <button type="submit" class="button button-waitlist">
+                  Join the waitlist
+                </button>
+              </form>
+            </div>
+            <div class="microcopy">
+              <span class="tiny-check" aria-hidden="true">✓</span> One email
+              when we launch. No marketing emails.
+            </div>
+          </div>
+          <div class="hero-product" id="product-demo">
+            <div class="float-note note-top">
+              <span class="round-icon mint" aria-hidden="true">✓</span>
+              <div>
+                <strong>A little more clarity.</strong
+                ><span>A lot less paperwork.</span>
               </div>
-              <button
-                type="submit"
-                class="px-5 py-3 rounded-xl bg-[linear-gradient(to_right,#FFDA94_0%,#F0D3C9_50%,#E5CCFF_100%)] text-black text-sm font-semibold transition active:scale-[0.98] whitespace-nowrap flex items-center justify-center gap-1.5 shadow-md"
-              >
-                <span>Join the waitlist</span>
-                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-              </button>
-            </form>
-            <!-- Reassurance copy -->
-            <p
-              class="mt-3 text-xs text-slate-500 dark:text-slate-400 flex items-center justify-center gap-1.5"
-            >
-              <i
-                data-lucide="shield-check"
-                class="w-3.5 h-3.5 text-slate-400"
-              ></i>
-              One email when we launch. No marketing emails.
+            </div>
+            <div class="product-window">
+              <div class="product-header">
+                <img
+                  class="product-logo"
+                  src="logo-new.png"
+                  alt=""
+                  width="25"
+                  height="25"
+                /><strong>My overview</strong
+                ><span class="sample-badge">Interactive example</span>
+              </div>
+              <div class="product-body">
+                <div class="product-greeting">
+                  <span class="small-label">YOUR INSURANCE, TOGETHER</span>
+                  <h2>Goodbye, scattered policies.</h2>
+                  <p>A simple view of the important details.</p>
+                </div>
+                <div
+                  class="product-tabs"
+                  role="tablist"
+                  aria-label="Insurance example views"
+                >
+                  <button
+                    id="overview-tab"
+                    role="tab"
+                    aria-selected="true"
+                    aria-controls="overview-panel"
+                  >
+                    Policies <span>3</span></button
+                  ><button
+                    id="dates-tab"
+                    role="tab"
+                    aria-selected="false"
+                    aria-controls="dates-panel"
+                    tabindex="-1"
+                  >
+                    Key dates</button
+                  ><button
+                    id="documents-tab"
+                    role="tab"
+                    aria-selected="false"
+                    aria-controls="documents-panel"
+                    tabindex="-1"
+                  >
+                    Documents
+                  </button>
+                </div>
+                <div class="demo-panels">
+                  <div
+                    id="overview-panel"
+                    role="tabpanel"
+                    aria-labelledby="overview-tab"
+                  >
+                    <div class="policy-row">
+                      <span
+                        class="policy-icon lavender"
+                        data-icon="home"
+                      ></span>
+                      <div>
+                        <strong>Home contents</strong
+                        ><span>Your home, your belongings</span>
+                      </div>
+                      <span class="policy-tag">Home</span>
+                    </div>
+                    <div class="policy-row">
+                      <span class="policy-icon peach" data-icon="car"></span>
+                      <div>
+                        <strong>Motor insurance</strong
+                        ><span>For the road ahead</span>
+                      </div>
+                      <span class="policy-tag">Car</span>
+                    </div>
+                    <div class="policy-row">
+                      <span class="policy-icon mint" data-icon="plane"></span>
+                      <div>
+                        <strong>Travel insurance</strong
+                        ><span>Wherever life takes you</span>
+                      </div>
+                      <span class="policy-tag">Travel</span>
+                    </div>
+                  </div>
+                  <div
+                    id="dates-panel"
+                    role="tabpanel"
+                    aria-labelledby="dates-tab"
+                    hidden
+                  >
+                    <div class="date-row">
+                      <span class="date-box">DEC<strong>31</strong></span>
+                      <div>
+                        <strong>Home contents renewal</strong
+                        ><span>31 December 2026</span>
+                      </div>
+                    </div>
+                    <div class="date-row">
+                      <span class="date-box peach">JAN<strong>15</strong></span>
+                      <div>
+                        <strong>Motor insurance renewal</strong
+                        ><span>15 January 2027</span>
+                      </div>
+                    </div>
+                    <div class="date-row">
+                      <span class="date-box mint">MAR<strong>01</strong></span>
+                      <div>
+                        <strong>Travel insurance renewal</strong
+                        ><span>1 March 2027</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    id="documents-panel"
+                    role="tabpanel"
+                    aria-labelledby="documents-tab"
+                    hidden
+                  >
+                    <div class="policy-row">
+                      <span
+                        class="policy-icon lavender"
+                        data-icon="file"
+                      ></span>
+                      <div>
+                        <strong>Home-policy.pdf</strong
+                        ><span>Home contents · Policy</span>
+                      </div>
+                      <span class="file-type">PDF</span>
+                    </div>
+                    <div class="policy-row">
+                      <span class="policy-icon peach" data-icon="file"></span>
+                      <div>
+                        <strong>Laptop-receipt.pdf</strong
+                        ><span>Home contents · Receipt</span>
+                      </div>
+                      <span class="file-type">PDF</span>
+                    </div>
+                    <div class="policy-row">
+                      <span class="policy-icon mint" data-icon="file"></span>
+                      <div>
+                        <strong>Travel-booking.pdf</strong
+                        ><span>Travel · Supporting document</span>
+                      </div>
+                      <span class="file-type">PDF</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="product-prompt">
+                  <span class="sparkle" aria-hidden="true">✦</span
+                  ><span>Less searching. More understanding.</span>
+                </div>
+              </div>
+            </div>
+            <div class="float-note note-bottom">
+              <span class="round-icon lavender" data-icon="layers"></span>
+              <div>
+                <strong>One place. A clearer picture.</strong
+                ><span>Built around the policies you have.</span>
+              </div>
+            </div>
+            <p class="demo-caption">
+              Illustrative product preview · Sample policies and dates
             </p>
-
-            <!-- Value propositions -->
-            <p
-              class="mt-4 text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 font-medium"
-            >
-              <span>Built for Switzerland</span>
-              <span class="text-slate-300 dark:text-slate-600">·</span>
-              <span>We don&apos;t sell insurance</span>
-              <span class="text-slate-300 dark:text-slate-600">·</span>
-              <span>Start with one policy</span>
-            </p>
           </div>
+        </div>
+        <div class="container trust-strip">
+          <!-- <span><span data-icon="flag"></span> Built for Switzerland</span> -->
+          <span><span data-icon="shield"></span> We don&apos;t sell insurance</span
+          ><span><span data-icon="file"></span> Start with one policy</span
+          ><span><span data-icon="message"></span> Everyday language</span>
         </div>
       </section>
 
-      <!-- THE PROBLEM SECTION -->
-      <section
-        class="py-8 sm:py-12 lg:py-16 border-t border-slate-200 dark:border-swiss-border/60 bg-slate-100/60 dark:bg-swiss-surface/40 transition-colors"
-      >
-        <div class="max-w-6xl mx-auto px-4 sm:px-6">
-          <div
-            class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start"
-          >
-            <!-- Left: Eyebrow + Headline -->
-            <div class="lg:col-span-6">
-              <span
-                class="text-xs sm:text-[13px] font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400"
-                >THE PROBLEM</span
-              >
-              <h2
-                class="mt-4 sm:mt-5 text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight leading-[1.2]"
-              >
-                <span class="text-slate-500 dark:text-slate-400 block"
-                  >Your policies are somewhere.</span
-                >
-                <span class="text-slate-900 dark:text-white block mt-1"
-                  >Your answer should be here.</span
-                >
-              </h2>
-            </div>
-
-            <!-- Right: Aligned with the H2 -->
-            <div class="lg:col-span-6 max-w-xl space-y-4 lg:pt-9">
-              <p
-                class="text-slate-900 dark:text-slate-200 text-lg sm:text-xl font-medium leading-snug"
-              >
-                A document in your inbox. A policy in a folder. Another login to
-                remember.
-              </p>
-              <p
-                class="text-slate-600 dark:text-slate-400 text-base sm:text-[17px] leading-relaxed"
-              >
-                When you need an answer, finding the paperwork is only the
-                beginning. MyPrism 360 brings your policies together and helps
-                you understand the details.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- HOW IT WORKS SECTION -->
-      <section
-        id="how-it-works"
-        class="py-6 sm:py-10 lg:py-12 border-t border-slate-200 dark:border-swiss-border/60 bg-white dark:bg-swiss-surface/40 transition-colors"
-      >
-        <div class="max-w-6xl mx-auto px-4 sm:px-6">
-          <span
-            class="block text-center text-xs sm:text-[13px] font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400"
-            >HOW IT WORKS</span
-          >
-          <h2
-            class="mt-4 sm:mt-5 text-center text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold tracking-tight text-slate-900 dark:text-white leading-[1.16]"
-          >
-            Start with one policy. Get a clear picture.
-          </h2>
-
-          <div
-            class="mt-6 lg:mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8"
-          >
-            <!-- Step 01 -->
-            <div
-              class="glass-card glass-card-hover rounded-2xl p-7 sm:p-8 flex flex-col justify-between relative group overflow-hidden"
-            >
-              <div
-                class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-400/20 dark:via-white/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              ></div>
-              <div>
-                <h6
-                  class="inline-block text-xs sm:text-[13px] font-mono font-bold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400 px-3 py-1 rounded-lg bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] group-hover:text-slate-900 dark:group-hover:text-white group-hover:border-slate-300 dark:group-hover:border-white/20 transition-all mb-6"
-                >
-                  01
-                </h6>
-                <h4
-                  class="text-xl sm:text-2xl lg:text-[26px] font-bold tracking-tight text-slate-900 dark:text-white leading-snug mb-3 group-hover:text-slate-900 dark:group-hover:text-white transition-colors"
-                >
-                  Add your policy
-                </h4>
-                <p
-                  class="text-slate-600 dark:text-slate-400 text-base sm:text-[17px] leading-relaxed"
-                >
-                  Upload a policy document to get started.
-                </p>
-              </div>
-            </div>
-
-            <!-- Step 02 -->
-            <div
-              class="glass-card glass-card-hover rounded-2xl p-7 sm:p-8 flex flex-col justify-between relative group overflow-hidden"
-            >
-              <div
-                class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-400/20 dark:via-white/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              ></div>
-              <div>
-                <h6
-                  class="inline-block text-xs sm:text-[13px] font-mono font-bold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400 px-3 py-1 rounded-lg bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] group-hover:text-slate-900 dark:group-hover:text-white group-hover:border-slate-300 dark:group-hover:border-white/20 transition-all mb-6"
-                >
-                  02
-                </h6>
-                <h4
-                  class="text-xl sm:text-2xl lg:text-[26px] font-bold tracking-tight text-slate-900 dark:text-white leading-snug mb-3 group-hover:text-slate-900 dark:group-hover:text-white transition-colors"
-                >
-                  Ask your questions
-                </h4>
-                <p
-                  class="text-slate-600 dark:text-slate-400 text-base sm:text-[17px] leading-relaxed"
-                >
-                  Explore what&apos;s covered, what&apos;s excluded and when the
-                  policy renews—in everyday language.
-                </p>
-              </div>
-            </div>
-
-            <!-- Step 03 -->
-            <div
-              class="glass-card glass-card-hover rounded-2xl p-7 sm:p-8 flex flex-col justify-between relative group overflow-hidden"
-            >
-              <div
-                class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-400/20 dark:via-white/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              ></div>
-              <div>
-                <h6
-                  class="inline-block text-xs sm:text-[13px] font-mono font-bold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-400 px-3 py-1 rounded-lg bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] group-hover:text-slate-900 dark:group-hover:text-white group-hover:border-slate-300 dark:group-hover:border-white/20 transition-all mb-6"
-                >
-                  03
-                </h6>
-                <h4
-                  class="text-xl sm:text-2xl lg:text-[26px] font-bold tracking-tight text-slate-900 dark:text-white leading-snug mb-3 group-hover:text-slate-900 dark:group-hover:text-white transition-colors"
-                >
-                  Bring everything together
-                </h4>
-                <p
-                  class="text-slate-600 dark:text-slate-400 text-base sm:text-[17px] leading-relaxed"
-                >
-                  Add more policies to build a clearer view of your insurance.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- WHAT IT DOES SECTION -->
-      <section
-        id="what-it-does"
-        class="py-6 sm:py-10 lg:py-12 border-t border-slate-200 dark:border-swiss-border/60 bg-slate-50/80 dark:bg-swiss-surface/40 transition-colors"
-      >
-        <div class="max-w-6xl mx-auto px-4 sm:px-6">
-          <span
-            class="block text-center text-xs sm:text-[13px] font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400"
-            >WHAT IT HELPS YOU DO</span
-          >
-          <h2
-            class="mt-4 sm:mt-5 text-center text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-bold tracking-tight text-slate-900 dark:text-white leading-[1.16]"
-          >
-            Less searching. More understanding.
-          </h2>
-
-          <div
-            class="mt-6 lg:mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8"
-          >
-            <!-- Item 01 -->
-            <div
-              class="glass-card glass-card-hover rounded-2xl p-7 sm:p-8 flex flex-col justify-between relative group overflow-hidden"
-            >
-              <div>
-                <h4
-                  class="text-lg sm:text-2xl lg:text-[24px] font-bold tracking-tight text-slate-900 dark:text-white leading-snug mb-3 group-hover:text-slate-900 dark:group-hover:text-white transition-colors"
-                >
-                  Find your policies in one place
-                </h4>
-                <p
-                  class="text-slate-600 dark:text-slate-400 text-base sm:text-[16px] leading-relaxed"
-                >
-                  Keep your insurance documents together, so you know where to
-                  look when you need them.
-                </p>
-              </div>
-            </div>
-
-            <!-- Item 02 -->
-            <div
-              class="glass-card glass-card-hover rounded-2xl p-7 sm:p-8 flex flex-col justify-between relative group overflow-hidden"
-            >
-              <div>
-                <h4
-                  class="text-lg sm:text-2xl lg:text-[24px] font-bold tracking-tight text-slate-900 dark:text-white leading-snug mb-3 group-hover:text-slate-900 dark:group-hover:text-white transition-colors"
-                >
-                  Make sense of the wording
-                </h4>
-                <p
-                  class="text-slate-600 dark:text-slate-400 text-base sm:text-[16px] leading-relaxed"
-                >
-                  Ask questions about your policies and get explanations that
-                  help you understand the details.
-                </p>
-              </div>
-            </div>
-
-            <!-- Item 03 -->
-            <div
-              class="glass-card glass-card-hover rounded-2xl p-7 sm:p-8 flex flex-col justify-between relative group overflow-hidden"
-            >
-              <div>
-                <h4
-                  class="text-lg sm:text-2xl lg:text-[24px] font-bold tracking-tight text-slate-900 dark:text-white leading-snug mb-3 group-hover:text-slate-900 dark:group-hover:text-white transition-colors"
-                >
-                  Keep track of renewal dates
-                </h4>
-                <p
-                  class="text-slate-600 dark:text-slate-400 text-base sm:text-[16px] leading-relaxed"
-                >
-                  See what renews and when, so you have time to review what
-                  comes next.
-                </p>
-              </div>
-            </div>
-
-            <!-- Item 04 -->
-            <div
-              class="glass-card glass-card-hover rounded-2xl p-7 sm:p-8 flex flex-col justify-between relative group overflow-hidden"
-            >
-              <div>
-                <h4
-                  class="text-lg sm:text-2xl lg:text-[24px] font-bold tracking-tight text-slate-900 dark:text-white leading-snug mb-3 group-hover:text-slate-900 dark:group-hover:text-white transition-colors"
-                >
-                  Keep supporting documents close
-                </h4>
-                <p
-                  class="text-slate-600 dark:text-slate-400 text-base sm:text-[16px] leading-relaxed"
-                >
-                  Store receipts and travel bookings alongside the policies they
-                  relate to.
-                </p>
-              </div>
-            </div>
-
-            <!-- Item 05 -->
-            <div
-              class="glass-card glass-card-hover rounded-2xl p-7 sm:p-8 flex flex-col justify-between relative group overflow-hidden"
-            >
-              <div>
-                <h4
-                  class="text-lg sm:text-2xl lg:text-[24px] font-bold tracking-tight text-slate-900 dark:text-white leading-snug mb-3 group-hover:text-slate-900 dark:group-hover:text-white transition-colors"
-                >
-                  Get organised when something happens
-                </h4>
-                <p
-                  class="text-slate-600 dark:text-slate-400 text-base sm:text-[16px] leading-relaxed"
-                >
-                  Find your policy details and supporting paperwork when you
-                  need to prepare a claim.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="flex flex-wrap items-center gap-2.5 sm:gap-3 mt-9 lg:mt-10 pt-9 lg:pt-10 border-t border-slate-200 dark:border-swiss-border/60 transition-colors"
-          >
-            <span
-              class="text-sm font-medium text-slate-500 dark:text-slate-400 mr-1"
-              >Across your cover:</span
-            >
-
-            <!-- Car -->
-            <div
-              class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20 text-slate-700 dark:text-slate-300 text-sm font-medium transition-colors"
-            >
-              <span
-                class="size-2 rounded-full bg-slate-500 dark:bg-slate-400"
-              ></span>
-              <span>Car</span>
-            </div>
-
-            <!-- Home -->
-            <div
-              class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20 text-slate-700 dark:text-slate-300 text-sm font-medium transition-colors"
-            >
-              <span
-                class="size-2 rounded-full bg-slate-500 dark:bg-slate-400"
-              ></span>
-              <span>Home</span>
-            </div>
-
-            <!-- Travel -->
-            <div
-              class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] hover:border-slate-300 dark:hover:border-white/20 text-slate-700 dark:text-slate-300 text-sm font-medium transition-colors"
-            >
-              <span
-                class="size-2 rounded-full bg-slate-500 dark:bg-slate-400"
-              ></span>
-              <span>Travel</span>
-            </div>
-
-            <!-- and more -->
-            <div
-              class="inline-flex items-center px-3 py-1.5 rounded-full border border-dashed border-slate-300 dark:border-white/20 hover:border-slate-400 dark:hover:border-white/30 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 text-sm font-medium transition-colors"
-            >
-              <span>and more</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- OUR PROMISE SECTION -->
-      <section
-        id="promise"
-        class="pb-6 sm:pb-10 lg:pb-12 mx-auto px-4 sm:px-6 bg-slate-50/80 dark:bg-swiss-surface/40"
-      >
-        <div
-          class="rounded-3xl glass-card border border-slate-200 dark:border-white/15 p-8 sm:p-12 relative overflow-hidden max-w-4xl mx-auto shadow-sm transition-colors"
-        >
-          <div class="relative space-y-5 text-center">
-            <div
-              class="inline-flex items-start gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs font-semibold text-slate-600 dark:text-slate-300"
-            >
-              <span>OUR PROMISE</span>
-            </div>
-
-            <h2
-              class="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white max-w-3xl mx-auto"
-            >
-              Clarity without the sales pitch.
+      <section class="section clarity-section" id="your-cover">
+        <div class="container">
+          <div class="section-heading center">
+            <span class="eyebrow">A LITTLE LESS COMPLICATED</span>
+            <h2>
+              Insurance is part of life.<br />Confusion shouldn&apos;t be.
             </h2>
+            <p>
+              A policy in your inbox. Another in a folder. Important details
+              everywhere.<br class="desktop-break" />
+              Bring them together, and make room for a little peace of mind.
+            </p>
+          </div>
+          <div class="benefit-grid">
+            <article class="benefit-card lavender-card">
+              <div class="mini-stack" aria-hidden="true">
+                <span class="paper paper-back"></span
+                ><span class="paper paperdmiddle"></span
+                ><span class="paper paper-front"
+                  ><span data-icon="file"></span><i></i><i></i
+                  ><b>All together.</b></span
+                >
+              </div>
+              <span class="card-kicker">01 / ORGANISE</span>
+              <h3>Your policies.<br />One familiar place.</h3>
+              <p>
+                Keep your documents together, so finding the right policy
+                doesn&apos;t become another task.
+              </p>
+            </article>
+            <article class="benefit-card peach-card">
+              <div class="mini-chat" aria-hidden="true">
+                <span class="chat-question">What does my policy cover?</span
+                ><span class="chat-answer"
+                  ><span>✦</span> Let&apos;s make it clearer.<i></i><i></i
+                ></span>
+              </div>
+              <span class="card-kicker">02 / UNDERSTAND</span>
+              <h3>Less fine print.<br />More understanding.</h3>
+              <p>
+                Ask questions about your policies and explore the details in
+                everyday language.
+              </p>
+            </article>
+            <article class="benefit-card mint-card">
+              <div class="mini-calendar" aria-hidden="true">
+                <div>YOUR KEY DATES <span data-icon="calendar"></span></div>
+                <span class="calendar-line"
+                  ><i></i><i></i><i></i><i></i><i></i></span
+                ><span class="calendar-line"
+                  ><i></i><i></i><i class="selected">31</i><i></i><i></i></span
+                ><span class="calendar-label">Home policy renewal</span>
+              </div>
+              <span class="card-kicker">03 / KEEP TRACK</span>
+              <h3>A clearer view<br />of what&apos;s next.</h3>
+              <p>
+                See renewal dates in one place, with time to check the details
+                before they come around.
+              </p>
+            </article>
+            <article class="benefit-card blue-card">
+              <div class="mini-vault" aria-hidden="true">
+                <div>YOUR VAULT <span data-icon="receipt"></span></div>
+                <div class="vault-ticket">
+                  <div class="vault-ticket-header">
+                    <span>Hotel &amp; flight</span>
+                    <strong>CHF 420</strong>
+                  </div>
+                  <div class="vault-bars">
+                    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                  </div>
+                  <span class="vault-pill">✓ Saved &amp; protected</span>
+                </div>
+                <span class="vault-label">Receipts &amp; bookings ready</span>
+              </div>
+              <span class="card-kicker">04 / VAULT</span>
+              <h3>A vault to store<br />bookings &amp; receipts.</h3>
+              <p>
+                Keep your booking confirmations, invoices and receipts in one secure
+                space alongside your policies.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
 
-            <p
-              class="text-center text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed"
-            >
+      <section class="section how-section" id="how-it-works">
+        <div class="container how-layout">
+          <div class="how-copy">
+            <span class="eyebrow">SMALL START. BIGGER PICTURE.</span>
+            <h2>Start with one policy.<br />Take it from there.</h2>
+            <p class="section-intro">
+              You don&apos;t need to organise your entire insurance life in one
+              sitting.
+            </p>
+            <ol class="steps">
+              <li>
+                <span class="step-number">1</span>
+                <div>
+                  <h3>Add a policy</h3>
+                  <p>
+                    Upload a policy document. Start with the one you want to
+                    understand better.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span class="step-number">2</span>
+                <div>
+                  <h3>Ask your questions</h3>
+                  <p>
+                    Explore what it covers, what it excludes and when it renews.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span class="step-number">3</span>
+                <div>
+                  <h3>Bring the rest together</h3>
+                  <p>
+                    Add more policies and supporting documents when you&apos;re
+                    ready.
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </div>
+          <div class="answer-demo">
+            <div class="answer-heading">
+              <span class="round-icon lavender" aria-hidden="true">✦</span>
+              <div>
+                <strong>Good questions. Clearer answers.</strong
+                ><span>Explore an illustrative example</span>
+              </div>
+            </div>
+            <div class="question-chips" aria-label="Choose an example question">
+              <button
+                class="active"
+                aria-pressed="true"
+                data-question="renewal"
+              >
+                When does it renew?</button
+              ><button aria-pressed="false" data-question="documents">
+                Where are my documents?</button
+              ><button aria-pressed="false" data-question="next">
+                What should I check?
+              </button>
+            </div>
+            <div class="conversation" aria-live="polite" aria-atomic="true">
+              <div class="user-question" id="sample-question">
+                When does my home policy renew?
+              </div>
+              <div class="assistant-answer">
+                <span class="answer-spark" aria-hidden="true">✦</span>
+                <div>
+                  <p id="sample-answer">
+                    The renewal date in this sample policy is
+                    <strong>31 December 2026</strong>. Check the policy&apos;s
+                    notice period before making any changes.
+                  </p>
+                  <div class="source-chip">
+                    <span data-icon="file"></span
+                    ><span id="sample-source"
+                      >Home-policy.pdf · Example document</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="demo-footnote">
+              <span data-icon="info"></span> Sample conversation, not a live
+              policy assessment.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section connected-section">
+        <div class="container connected-layout">
+          <div class="connected-visual">
+            <div class="folder-top">
+              <span data-icon="folder"></span
+              ><span>Everything connected to your cover</span>
+            </div>
+            <div class="connected-doc doc-one">
+              <span class="policy-icon lavender" data-icon="home"></span>
+              <div><strong>Home contents</strong><span>Your policy</span></div>
+              <span class="document-dot"></span>
+            </div>
+            <div class="connector-line" aria-hidden="true"></div>
+            <div class="connected-doc doc-two">
+              <span class="policy-icon peach" data-icon="receipt"></span>
+              <div>
+                <strong>Laptop receipt</strong
+                ><span>Your supporting document</span>
+              </div>
+              <span class="paperclip" data-icon="link"></span>
+            </div>
+            <div class="connected-caption">
+              <span aria-hidden="true">✓</span> The details you need, closer
+              together.
+            </div>
+          </div>
+          <div class="connected-copy">
+            <span class="eyebrow">THINK BEYOND THE POLICY</span>
+            <h2>Life doesn&apos;t fit<br />in one PDF.</h2>
+            <p>
+              Neither does your insurance paperwork. Keep receipts for your
+              belongings alongside home cover, and bookings next to travel
+              insurance.
+            </p>
+            <p>
+              When something happens, your policy details and supporting
+              documents are easier to find.
+            </p>
+            <div class="category-tags">
+              <span>Home</span><span>Car</span><span>Travel</span
+              ><span>And more</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="promise-section" id="our-promise">
+        <div class="container promise-inner">
+          <div class="promise-emblem" aria-hidden="true">
+            <img
+              src="neon-shield.png"
+              alt="MyPrism 360 Security Shield"
+              class="promise-shield-img"
+              width="1330"
+              height="1182"
+              loading="lazy"
+            />
+          </div>
+          <div>
+            <span class="eyebrow">OUR PROMISE TO YOU</span>
+            <h2>Clarity.<br />Without the sales pitch.</h2>
+            <p>
               MyPrism 360 doesn&apos;t sell insurance or recommend switching
               policies. We&apos;re building it to help you understand and
               organise the cover you already have.
             </p>
+            <span class="promise-signoff"
+              >Your policies. Your perspective. A clearer picture.</span
+            >
           </div>
         </div>
       </section>
 
-      <!-- FAQ SECTION -->
-      <section
-        id="faq"
-        class="py-6 sm:py-10 lg:py-12 border-t border-slate-200 dark:border-swiss-border/60 bg-white dark:bg-swiss-surface/40 transition-colors"
-      >
-        <div class="max-w-3xl mx-auto px-4 sm:px-6">
-          <div class="text-center mb-12">
-            <span
-              class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
-              >FAQ</span
-            >
-            <h2
-              class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-2"
-            >
-              Questions, answered.
-            </h2>
+      <section class="section faq-section" id="faq">
+        <div class="container faq-layout">
+          <div>
+            <span class="eyebrow">GOOD TO KNOW</span>
+            <h2>A few answers,<br />before you start.</h2>
+            <p>We&apos;re still building. Here&apos;s what you can expect.</p>
           </div>
-
-          <!-- Accordion Container -->
-          <div class="space-y-3.5">
-            <!-- FAQ 1 -->
-            <div
-              class="rounded-xl border border-slate-200 dark:border-swiss-border bg-slate-50/80 dark:bg-swiss-card overflow-hidden transition-colors shadow-sm"
-            >
-              <button
-                onclick="toggleFaq(this)"
-                class="w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-semibold text-slate-900 dark:text-white hover:text-slate-700 dark:hover:text-slate-200"
-              >
-                <span class="text-base"
-                  >Is MyPrism 360 an insurance broker?</span
+          <div class="faq-list">
+            <details open>
+              <summary>
+                What is MyPrism 360?<span aria-hidden="true">+</span>
+              </summary>
+              <p>
+                MyPrism 360 is being built to help you organise your insurance
+                policies, understand their details and keep track of renewal
+                dates—all in one place.
+              </p>
+            </details>
+            <details>
+              <summary>
+                Is MyPrism 360 an insurance broker?<span aria-hidden="true"
+                  >+</span
                 >
-                <span
-                  class="faq-icon text-slate-500 dark:text-slate-400 transition-transform duration-200"
+              </summary>
+              <p>
+                No. MyPrism 360 doesn&apos;t sell insurance or recommend
+                switching policies. Its focus is helping you understand the
+                insurance you already have.
+              </p>
+            </details>
+            <details>
+              <summary>
+                Do I need to add every policy at once?<span aria-hidden="true"
+                  >+</span
                 >
-                  <i data-lucide="plus" class="w-5 h-5"></i>
-                </span>
-              </button>
-              <div
-                class="faq-answer hidden px-5 pb-5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-200 dark:border-swiss-border/40 pt-3"
-              >
-                No. We don't sell insurance and we don't advise you to switch.
-                We help you understand the policies you already have.
-              </div>
-            </div>
-
-            <!-- FAQ 2 -->
-            <div
-              class="rounded-xl border border-slate-200 dark:border-swiss-border bg-slate-50/80 dark:bg-swiss-card overflow-hidden transition-colors shadow-sm"
-            >
-              <button
-                onclick="toggleFaq(this)"
-                class="w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-semibold text-slate-900 dark:text-white hover:text-slate-700 dark:hover:text-slate-200"
-              >
-                <span class="text-base"
-                  >Do I need to add all my policies at once?</span
+              </summary>
+              <p>
+                No. Start with one policy you want to understand better. You can
+                bring the others together as you go.
+              </p>
+            </details>
+            <details>
+              <summary>
+                Who is it being built for?<span aria-hidden="true">+</span>
+              </summary>
+              <p>
+                MyPrism 360 is being built for people in Switzerland who want a
+                clearer view of their insurance. Launch details will be shared
+                when the product is ready.
+              </p>
+            </details>
+            <details>
+              <summary>
+                When can I use it?<span aria-hidden="true">+</span>
+              </summary>
+              <p>
+                The product is still in development. Join the waitlist on the
+                current MyPrism 360 website to receive an email when it
+                launches.
+              </p>
+            </details>
+            <details>
+              <summary>
+                Are the previews on this page live?<span aria-hidden="true"
+                  >+</span
                 >
-                <span
-                  class="faq-icon text-slate-500 dark:text-slate-400 transition-transform duration-200"
-                >
-                  <i data-lucide="plus" class="w-5 h-5"></i>
-                </span>
-              </button>
-              <div
-                class="faq-answer hidden px-5 pb-5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-200 dark:border-swiss-border/40 pt-3"
-              >
-                No. Start with a single policy, ask it some questions, and add
-                the rest when you're ready.
-              </div>
-            </div>
-
-            <!-- FAQ 3 -->
-            <div
-              class="rounded-xl border border-slate-200 dark:border-swiss-border bg-slate-50/80 dark:bg-swiss-card overflow-hidden transition-colors shadow-sm"
-            >
-              <button
-                onclick="toggleFaq(this)"
-                class="w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-semibold text-slate-900 dark:text-white hover:text-slate-700 dark:hover:text-slate-200"
-              >
-                <span class="text-base">Is it only for Switzerland?</span>
-                <span
-                  class="faq-icon text-slate-500 dark:text-slate-400 transition-transform duration-200"
-                >
-                  <i data-lucide="plus" class="w-5 h-5"></i>
-                </span>
-              </button>
-              <div
-                class="faq-answer hidden px-5 pb-5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-200 dark:border-swiss-border/40 pt-3"
-              >
-                MyPrism 360 is built for Switzerland first, and we're starting
-                with people who are new to the Swiss insurance system.
-              </div>
-            </div>
-
-            <!-- FAQ 4 -->
-            <div
-              class="rounded-xl border border-slate-200 dark:border-swiss-border bg-slate-50/80 dark:bg-swiss-card overflow-hidden transition-colors shadow-sm"
-            >
-              <button
-                onclick="toggleFaq(this)"
-                class="w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-semibold text-slate-900 dark:text-white hover:text-slate-700 dark:hover:text-slate-200"
-              >
-                <span class="text-base">When does it launch?</span>
-                <span
-                  class="faq-icon text-slate-500 dark:text-slate-400 transition-transform duration-200"
-                >
-                  <i data-lucide="plus" class="w-5 h-5"></i>
-                </span>
-              </button>
-              <div
-                class="faq-answer hidden px-5 pb-5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-200 dark:border-swiss-border/40 pt-3"
-              >
-                We're still building. Join the waitlist and you'll get one email
-                when it's ready.
-              </div>
-            </div>
+              </summary>
+              <p>
+                The previews show illustrative policies, dates and conversations
+                to explain the proposed experience. They do not process
+                documents or provide a live assessment of your insurance.
+              </p>
+            </details>
           </div>
         </div>
       </section>
 
-      <!-- FINAL CALL TO ACTION SECTION -->
-      <section
-        id="waitlist-section"
-        class="py-6 sm:py-10 lg:py-10 max-w-6xl mx-auto px-4 sm:px-6"
-      >
-        <div
-          class="relative rounded-3xl px-2 sm:p-8 text-center overflow-hidden"
-        >
-          <div class="relative z-10 max-w-2xl mx-auto space-y-6">
-            <span
-              class="text-xs sm:text-[13px] font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400"
-              >FINAL SIGNUP</span
-            >
-            <h2
-              class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight"
-            >
-              A clearer view of your insurance starts here.
-            </h2>
-
-            <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300">
-              MyPrism 360 is coming to Switzerland. Join the waitlist and
-              we&apos;ll let you know when it&apos;s ready.
+      <section class="section contact-section" id="contact">
+        <div class="container contact-layout">
+          <div class="contact-info">
+            <span class="eyebrow">GET IN TOUCH</span>
+            <h2>Questions, ideas or feedback?<br />We&apos;re listening.</h2>
+            <p class="section-intro">
+              Whether you want to learn more about our Swiss launch, share what insurance clarity means to you, or explore collaboration opportunities, we&apos;d love to hear from you.
             </p>
 
-            <!-- Bottom Waitlist Form -->
-            <div class="pt-4 mx-auto">
-              <form
-                onsubmit="handleWaitlistSubmit(event, 'footer-email')"
-                class="relative w-full flex flex-col sm:flex-row gap-2.5 p-1.5 rounded-2xl bg-white dark:bg-swiss-dark/80 border border-slate-200 dark:border-white/15"
-              >
-                <div class="relative flex-1">
-                  <input
-                    id="footer-email"
-                    type="email"
-                    name="email"
-                    required
-                    placeholder="you@email.com"
-                    class="w-full px-3 py-3 bg-transparent rounded-xl text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-400 dark:focus:ring-swiss-gray/80 transition"
-                  />
+            <div class="contact-cards">
+              <div class="contact-card">
+                <div class="contact-card-icon lavender" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                 </div>
-                <button
-                  type="submit"
-                  class="px-5 py-3 rounded-xl bg-[linear-gradient(to_right,#FFDA94_0%,#F0D3C9_50%,#E5CCFF_100%)] text-black text-sm font-semibold transition active:scale-[0.98] whitespace-nowrap flex items-center justify-center gap-1.5 shadow-md"
-                >
-                  <span>Join the waitlist</span>
-                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </button>
-              </form>
-              <p
-                class="mt-3 text-xs text-slate-500 dark:text-slate-400 flex items-center justify-center gap-1.5"
-              >
-                <i
-                  data-lucide="shield-check"
-                  class="w-3.5 h-3.5 text-slate-400"
-                ></i>
-                One email when we launch. No marketing emails.
-              </p>
+                <div>
+                  <strong>Email us directly</strong>
+                  <a href="mailto:hello@myprism360.ch" class="contact-link">hello@myprism360.ch</a>
+                </div>
+              </div>
+
+              <div class="contact-card">
+                <div class="contact-card-icon mint" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </div>
+                <div>
+                  <strong>Headquarters</strong>
+                  <span>Zurich, Switzerland</span>
+                </div>
+              </div>
+
+              <div class="contact-card">
+                <div class="contact-card-icon peach" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+                <div>
+                  <strong>Response time</strong>
+                  <span>Within 24 business hours</span>
+                </div>
+              </div>
             </div>
+          </div>
+
+          <div class="contact-form-wrap">
+            <div class="contact-feedback" id="contact-feedback" role="alert" aria-live="polite" hidden>
+              <span class="contact-feedback-icon" aria-hidden="true">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="4 10 8 14 16 6"></polyline>
+                </svg>
+              </span>
+              <div class="contact-feedback-content">
+                <strong>Message sent successfully!</strong>
+                <span>Thanks for reaching out. We&apos;ll be in touch within 24 business hours.</span>
+              </div>
+            </div>
+            <form class="contact-form" id="contact-form" onsubmit="handleContactSubmit(event)">
+              <div class="form-group">
+                <label for="contact-name">Your Name</label>
+                <input
+                  type="text"
+                  id="contact-name"
+                  name="name"
+                  class="contact-input"
+                  placeholder="e.g. Marc Rossi"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="contact-email">Email Address</label>
+                <input
+                  type="email"
+                  id="contact-email"
+                  name="email"
+                  class="contact-input"
+                  placeholder="name@example.ch"
+                  required
+                  autocomplete="email"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="contact-topic">Topic</label>
+                <div class="select-wrapper">
+                  <select id="contact-topic" name="topic" class="contact-input contact-select">
+                    <option value="General question">General question</option>
+                    <option value="Product feedback">Product feedback</option>
+                    <option value="Swiss launch inquiry">Swiss launch inquiry</option>
+                    <option value="Partnership / Press">Partnership / Press</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="contact-message">Message</label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  class="contact-input contact-textarea"
+                  rows="4"
+                  placeholder="Tell us what you&apos;d like to discuss..."
+                  required
+                ></textarea>
+              </div>
+
+              <button type="submit" class="button button-contact">
+                Send message
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="waitlist-section" id="waitlist">
+        <div class="container">
+          <div class="waitlist-panel">
+            <!-- <span class="waitlist-orbit orbit-one" aria-hidden="true"></span
+            ><span class="waitlist-orbit orbit-two" aria-hidden="true"></span>
+            <div class="eyebrow">
+              <span class="status-dot" aria-hidden="true"></span> LAUNCHING IN
+              SWITZERLAND
+            </div> -->
+            <h2>A little less paperwork.<br />A lot more clarity.</h2>
+            <p>
+              Be there when MyPrism 360 launches.<br />Join the waitlist for a
+              clearer view of your insurance.
+            </p>
+            <form
+              class="hero-waitlist-group waitlist-panel-group"
+              id="bottom-waitlist-form"
+              onsubmit="handleWaitlistSubmit(event, 'bottom-email')"
+            >
+              <input
+                type="email"
+                class="waitlist-input"
+                id="bottom-email"
+                name="email"
+                placeholder="Enter your email address"
+                required
+                aria-label="Email address to join the waitlist"
+                autocomplete="email"
+              />
+              <button type="submit" class="button button-waitlist">
+                Join the waitlist
+              </button>
+            </form>
+            <span class="waitlist-note"
+              >Continue to MyPrism 360 to sign up.<br />One email when we
+              launch. No marketing emails.</span
+            >
           </div>
         </div>
       </section>
     </main>
-
-    <!-- FOOTER -->
-    <footer
-      class="border-t border-slate-200 dark:border-swiss-border py-6 sm:py-10 bg-[#F8FAFC] dark:bg-swiss-dark text-slate-500 text-xs transition-colors"
-    >
-      <div
-        class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-6"
-      >
-        <!-- Brand & Note -->
-        <div class="flex items-center gap-1.5">
-          <!-- logo -->
-          <img src="./logo.svg" alt="logo" class="size-8 mb-2 drop-shadow-sm" />
-          <!-- text -->
-          <p
-            class="text-[24px] font-semibold text-slate-900 dark:text-slate-300"
-          >
-            MyPrism <span class="text-[10px]">360</span>
-          </p>
-        </div>
-
-        <!-- Legal Disclaimer from PDF -->
-        <p class="text-center sm:text-right text-slate-500 dark:text-slate-400">
-          Not an insurance broker. We don't sell or advise on policies.
-        </p>
-
-        <!-- Copyright -->
-        <div class="text-slate-500">
-          &copy; <span id="year"></span> MyPrism 360. All rights reserved.
-        </div>
+    <footer>
+      <div class="container footer-main">
+        <a href="#" class="brand" aria-label="MyPrism 360 home"
+          ><img
+            class="brand-logo"
+            src="logo-new.png"
+            alt=""
+            width="40"
+            height="40"
+          /><span>MyPrism<span class="brand-360">360</span></span></a
+        >
+        <p>A clearer view of the insurance you already have.</p>
+      </div>
+      <div class="container footer-bottom">
+        <span>© <span id="year">2026</span> MyPrism 360</span
+        ><span
+          >Not an insurance broker. We don&apos;t sell or advise on
+          policies.</span
+        >
       </div>
     </footer>
-
-    <!-- SCRIPT FOR INTERACTIONS -->
-    <script>
-      // ========================================================
-      // GOOGLE DOCS / SHEETS WAITLIST CONFIGURATION
-      // ========================================================
-      const GOOGLE_SCRIPT_URL =
-        "https://script.google.com/macros/s/AKfycbyjSW4tGEXXiqmQikpscroFOOt_Efs9krTax-JxR6NEEMwQWKGy3Y7Vcc9D8ERPm3ql/exec";
-
-      // Theme Switcher Logic
-      function toggleTheme() {
-        const isDark = document.documentElement.classList.toggle("dark");
-        localStorage.setItem("theme", isDark ? "dark" : "light");
-      }
-
-      // Initialize Lucide Icons safely if library is present
-      if (typeof lucide !== "undefined") {
-        lucide.createIcons();
-      }
-
-      // Set dynamic current year in footer
-      const yearEl = document.getElementById("year");
-      if (yearEl) {
-        yearEl.textContent = new Date().getFullYear();
-      }
-
-      // FAQ Accordion Handler
-      function toggleFaq(button) {
-        const answer = button.nextElementSibling;
-        const icon = button.querySelector(".faq-icon");
-        const isHidden = answer.classList.contains("hidden");
-
-        // Close all other accordions for clean single-open behavior
-        document
-          .querySelectorAll(".faq-answer")
-          .forEach((el) => el.classList.add("hidden"));
-        document.querySelectorAll(".faq-icon").forEach((el) => {
-          el.innerHTML = '<i data-lucide="plus" class="w-5 h-5"></i>';
-        });
-
-        if (isHidden) {
-          answer.classList.remove("hidden");
-          icon.innerHTML = '<i data-lucide="minus" class="w-5 h-5"></i>';
-        } else {
-          answer.classList.add("hidden");
-          icon.innerHTML = '<i data-lucide="plus" class="w-5 h-5"></i>';
-        }
-
-        if (typeof lucide !== "undefined") {
-          lucide.createIcons();
-        }
-      }
-
-      // Waitlist Form Handler with Google Docs / Sheets Storage & Visual Feedback
-      async function handleWaitlistSubmit(event, inputId) {
-        event.preventDefault();
-        const input = document.getElementById(inputId);
-        if (!input) return;
-
-        const email = input.value.trim();
-        if (!email) return;
-
-        const form = input.closest("form");
-        const button = form
-          ? form.querySelector("button[type='submit']")
-          : null;
-        const originalBtnContent = button ? button.innerHTML : "";
-
-        // Button loading state
-        if (button) {
-          button.disabled = true;
-          button.innerHTML = `<span>Joining...</span>`;
-        }
-
-        try {
-          // If a Google Apps Script Web App URL is configured, send the submission
-          if (
-            GOOGLE_SCRIPT_URL &&
-            !GOOGLE_SCRIPT_URL.includes("YOUR_GOOGLE_APPS_SCRIPT")
-          ) {
-            const params = new URLSearchParams();
-            params.append("email", email);
-            params.append("timestamp", new Date().toLocaleString());
-            params.append(
-              "source",
-              inputId === "hero-email" ? "Hero Section" : "Footer Section",
-            );
-
-            await fetch(GOOGLE_SCRIPT_URL, {
-              method: "POST",
-              mode: "no-cors",
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-              },
-              body: params.toString(),
-            });
-          }
-
-          // Show Feedback Toast
-          const toast = document.getElementById("toast");
-          if (toast) {
-            toast.classList.remove("translate-y-[-150%]", "opacity-0");
-            toast.classList.add("translate-y-0", "opacity-100");
-
-            setTimeout(() => {
-              toast.classList.remove("translate-y-0", "opacity-100");
-              toast.classList.add("translate-y-[-150%]", "opacity-0");
-            }, 4500);
-          }
-
-          // Clear input
-          input.value = "";
-        } catch (error) {
-          console.error("Error submitting waitlist email:", error);
-        } finally {
-          if (button) {
-            button.disabled = false;
-            button.innerHTML = originalBtnContent;
-            if (typeof lucide !== "undefined") {
-              lucide.createIcons();
-            }
-          }
-        }
-      }
-    </script>
   </body>
 </html>

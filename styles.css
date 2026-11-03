@@ -451,6 +451,68 @@ h3 {
   display: none;
 }
 
+/* ── Language Toggle ───────────────────────────────── */
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid #ececf3;
+  background: #f7f6fb;
+  color: #5a6074;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s,
+    transform 0.2s;
+}
+
+.lang-toggle:hover {
+  background: #ede9f5;
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+
+.lang-flag {
+  display: flex;
+  align-items: center;
+}
+
+.lang-flag svg {
+  width: 20px;
+  height: 14px;
+  border-radius: 3px;
+  display: block;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+.lang-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+[data-theme="dark"] .lang-toggle {
+  border-color: var(--border);
+  background: var(--surface-raised);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .lang-toggle:hover {
+  background: var(--hover-track);
+  color: var(--text-primary);
+}
+/* ── End Language Toggle ───────────────────────────── */
+
 .menu-toggle {
   display: none;
 }
@@ -1714,14 +1776,24 @@ h3 {
   display: none;
 }
 
-.faq-list summary > span {
+.faq-list summary .faq-question {
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  transform: none !important;
+}
+
+.faq-list summary .faq-icon {
   font-size: 22px;
   color: #aa9dbb;
   font-weight: 400;
   transition: transform 0.2s;
+  display: inline-block;
+  line-height: 1;
+  flex-shrink: 0;
 }
 
-.faq-list details[open] summary > span {
+.faq-list details[open] summary .faq-icon {
   transform: rotate(45deg);
 }
 
@@ -2793,7 +2865,7 @@ h3 {
     gap: 10px;
   }
 
-  .faq-list summary > span {
+  .faq-list summary .faq-icon {
     font-size: 18px;
   }
 
@@ -3921,11 +3993,11 @@ body,
   color: #84e9ff;
 }
 
-[data-theme="dark"] .faq-list summary > span {
+[data-theme="dark"] .faq-list summary .faq-icon {
   color: #85858f;
 }
 
-[data-theme="dark"] .faq-list details[open] summary > span {
+[data-theme="dark"] .faq-list details[open] summary .faq-icon {
   color: #84e9ff;
 }
 

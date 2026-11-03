@@ -31,7 +31,7 @@
   </head>
 
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main" data-i18n="skip_link">Skip to content</a>
     <div
       id="toast"
       class="toast-notification translate-y-[-150%] opacity-0 toast-hidden"
@@ -44,10 +44,10 @@
         </svg>
       </div>
       <div class="toast-content">
-        <strong id="toast-title">You&apos;re on the waitlist!</strong>
-        <span id="toast-message">We&apos;ll notify you when MyPrism 360 launches.</span>
+        <strong id="toast-title" data-i18n="toast_title">You&apos;re on the waitlist!</strong>
+        <span id="toast-message" data-i18n="toast_message">We&apos;ll notify you when MyPrism 360 launches.</span>
       </div>
-      <button type="button" class="toast-close" id="toast-close" aria-label="Dismiss notification" onclick="hideToast()">
+      <button type="button" class="toast-close" id="toast-close" aria-label="Dismiss notification" data-i18n-aria-label="toast_close_label" onclick="hideToast()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -67,12 +67,12 @@
         >
         <div class="header-right">
           <nav id="main-nav" aria-label="Main navigation">
-            <a href="#how-it-works">How it works</a>
-            <a href="#your-cover">What you can do</a>
-            <a href="#our-promise">Our promise</a>
-            <a href="#faq">FAQs</a>
-            <a href="#contact">Contact</a>
-            <a class="button button-small button-waitlist" href="#waitlist">
+            <a href="#how-it-works" data-i18n="nav_how">How it works</a>
+            <a href="#your-cover" data-i18n="nav_cover">What you can do</a>
+            <a href="#our-promise" data-i18n="nav_promise">Our promise</a>
+            <a href="#faq" data-i18n="nav_faq">FAQs</a>
+            <a href="#contact" data-i18n="nav_contact">Contact</a>
+            <a class="button button-small button-waitlist" href="#waitlist" data-i18n="nav_waitlist_btn">
               Join the waitlist
             </a>
           </nav>
@@ -94,6 +94,34 @@
                 <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
               </svg>
             </button>
+            <!-- Language Toggle -->
+            <button
+              class="lang-toggle"
+              id="lang-toggle"
+              type="button"
+              aria-label="Switch language"
+              title="Switch language"
+              data-i18n-aria-label="lang_toggle_label"
+              data-i18n-title="lang_toggle_label"
+            >
+              <span class="lang-flag lang-flag-en" aria-hidden="true">
+                <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="UK flag">
+                  <rect width="60" height="40" fill="#012169"/>
+                  <path d="M0,0 L60,40 M60,0 L0,40" stroke="#fff" stroke-width="8"/>
+                  <path d="M0,0 L60,40 M60,0 L0,40" stroke="#C8102E" stroke-width="4"/>
+                  <path d="M30,0 V40 M0,20 H60" stroke="#fff" stroke-width="12"/>
+                  <path d="M30,0 V40 M0,20 H60" stroke="#C8102E" stroke-width="7"/>
+                </svg>
+              </span>
+              <span class="lang-flag lang-flag-de" aria-hidden="true" style="display:none;">
+                <svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="German flag">
+                  <rect width="60" height="40" fill="#000"/>
+                  <rect y="13.33" width="60" height="13.34" fill="#DD0000"/>
+                  <rect y="26.67" width="60" height="13.33" fill="#FFCE00"/>
+                </svg>
+              </span>
+              <span class="lang-label" id="lang-label">EN</span>
+            </button>
             <button
               class="menu-toggle"
               aria-label="Open navigation"
@@ -112,15 +140,15 @@
         <div class="container hero-layout">
           <div class="hero-copy">
             <h1>
-              Your insurance.<br /><span class="headline-accent"
+              <span data-i18n="hero_h1_line1">Your insurance.</span><br /><span class="headline-accent" data-i18n="hero_h1_accent"
                 >Finally clear.</span
               >
             </h1>
-            <p class="hero-description">
+            <p class="hero-description" data-i18n="hero_description">
               All your policies. Answers that make sense. A clearer picture of
               the cover you already have.
             </p>
-            <p class="hero-secondary">
+            <p class="hero-secondary" data-i18n="hero_secondary">
               Meet MyPrism 360—your space to organise insurance, understand the
               details and keep track of what&apos;s next.
             </p>
@@ -138,24 +166,26 @@
                   placeholder="Enter your email address"
                   required
                   aria-label="Email address to join the waitlist"
+                  data-i18n-placeholder="hero_email_placeholder"
+                  data-i18n-aria-label="hero_email_label"
                   autocomplete="email"
                 />
-                <button type="submit" class="button button-waitlist">
+                <button type="submit" class="button button-waitlist" data-i18n="hero_waitlist_btn">
                   Join the waitlist
                 </button>
               </form>
             </div>
             <div class="microcopy">
-              <span class="tiny-check" aria-hidden="true">✓</span> One email
-              when we launch. No marketing emails.
+              <span class="tiny-check" aria-hidden="true">✓</span> <span data-i18n="hero_microcopy">One email
+              when we launch. No marketing emails.</span>
             </div>
           </div>
           <div class="hero-product" id="product-demo">
             <div class="float-note note-top">
               <span class="round-icon mint" aria-hidden="true">✓</span>
               <div>
-                <strong>A little more clarity.</strong
-                ><span>A lot less paperwork.</span>
+                <strong data-i18n="float_top_strong">A little more clarity.</strong
+                ><span data-i18n="float_top_span">A lot less paperwork.</span>
               </div>
             </div>
             <div class="product-window">
@@ -166,14 +196,14 @@
                   alt=""
                   width="25"
                   height="25"
-                /><strong>My overview</strong
-                ><span class="sample-badge">Interactive example</span>
+                /><strong data-i18n="product_header_strong">My overview</strong
+                ><span class="sample-badge" data-i18n="sample_badge">Interactive example</span>
               </div>
               <div class="product-body">
                 <div class="product-greeting">
-                  <span class="small-label">YOUR INSURANCE, TOGETHER</span>
-                  <h2>Goodbye, scattered policies.</h2>
-                  <p>A simple view of the important details.</p>
+                  <span class="small-label" data-i18n="product_label">YOUR INSURANCE, TOGETHER</span>
+                  <h2 data-i18n="product_h2">Goodbye, scattered policies.</h2>
+                  <p data-i18n="product_p">A simple view of the important details.</p>
                 </div>
                 <div
                   class="product-tabs"
@@ -186,7 +216,7 @@
                     aria-selected="true"
                     aria-controls="overview-panel"
                   >
-                    Policies <span>3</span></button
+                    <span data-i18n="tab_policies">Policies</span> <span>3</span></button
                   ><button
                     id="dates-tab"
                     role="tab"
@@ -194,7 +224,7 @@
                     aria-controls="dates-panel"
                     tabindex="-1"
                   >
-                    Key dates</button
+                    <span data-i18n="tab_dates">Key dates</span></button
                   ><button
                     id="documents-tab"
                     role="tab"
@@ -202,7 +232,7 @@
                     aria-controls="documents-panel"
                     tabindex="-1"
                   >
-                    Documents
+                    <span data-i18n="tab_documents">Documents</span>
                   </button>
                 </div>
                 <div class="demo-panels">
@@ -217,26 +247,26 @@
                         data-icon="home"
                       ></span>
                       <div>
-                        <strong>Home contents</strong
-                        ><span>Your home, your belongings</span>
+                        <strong data-i18n="policy1_strong">Home contents</strong
+                        ><span data-i18n="policy1_span">Your home, your belongings</span>
                       </div>
-                      <span class="policy-tag">Home</span>
+                      <span class="policy-tag" data-i18n="policy1_tag">Home</span>
                     </div>
                     <div class="policy-row">
                       <span class="policy-icon peach" data-icon="car"></span>
                       <div>
-                        <strong>Motor insurance</strong
-                        ><span>For the road ahead</span>
+                        <strong data-i18n="policy2_strong">Motor insurance</strong
+                        ><span data-i18n="policy2_span">For the road ahead</span>
                       </div>
-                      <span class="policy-tag">Car</span>
+                      <span class="policy-tag" data-i18n="policy2_tag">Car</span>
                     </div>
                     <div class="policy-row">
                       <span class="policy-icon mint" data-icon="plane"></span>
                       <div>
-                        <strong>Travel insurance</strong
-                        ><span>Wherever life takes you</span>
+                        <strong data-i18n="policy3_strong">Travel insurance</strong
+                        ><span data-i18n="policy3_span">Wherever life takes you</span>
                       </div>
-                      <span class="policy-tag">Travel</span>
+                      <span class="policy-tag" data-i18n="policy3_tag">Travel</span>
                     </div>
                   </div>
                   <div
@@ -246,24 +276,24 @@
                     hidden
                   >
                     <div class="date-row">
-                      <span class="date-box">DEC<strong>31</strong></span>
+                      <span class="date-box"><span data-i18n="date1_month">DEC</span><strong>31</strong></span>
                       <div>
-                        <strong>Home contents renewal</strong
-                        ><span>31 December 2026</span>
+                        <strong data-i18n="date1_strong">Home contents renewal</strong
+                        ><span data-i18n="date1_span">31 December 2026</span>
                       </div>
                     </div>
                     <div class="date-row">
-                      <span class="date-box peach">JAN<strong>15</strong></span>
+                      <span class="date-box peach"><span data-i18n="date2_month">JAN</span><strong>15</strong></span>
                       <div>
-                        <strong>Motor insurance renewal</strong
-                        ><span>15 January 2027</span>
+                        <strong data-i18n="date2_strong">Motor insurance renewal</strong
+                        ><span data-i18n="date2_span">15 January 2027</span>
                       </div>
                     </div>
                     <div class="date-row">
-                      <span class="date-box mint">MAR<strong>01</strong></span>
+                      <span class="date-box mint"><span data-i18n="date3_month">MAR</span><strong>01</strong></span>
                       <div>
-                        <strong>Travel insurance renewal</strong
-                        ><span>1 March 2027</span>
+                        <strong data-i18n="date3_strong">Travel insurance renewal</strong
+                        ><span data-i18n="date3_span">1 March 2027</span>
                       </div>
                     </div>
                   </div>
@@ -279,24 +309,24 @@
                         data-icon="file"
                       ></span>
                       <div>
-                        <strong>Home-policy.pdf</strong
-                        ><span>Home contents · Policy</span>
+                        <strong data-i18n="doc1_strong">Home-policy.pdf</strong
+                        ><span data-i18n="doc1_span">Home contents · Policy</span>
                       </div>
                       <span class="file-type">PDF</span>
                     </div>
                     <div class="policy-row">
                       <span class="policy-icon peach" data-icon="file"></span>
                       <div>
-                        <strong>Laptop-receipt.pdf</strong
-                        ><span>Home contents · Receipt</span>
+                        <strong data-i18n="doc2_strong">Laptop-receipt.pdf</strong
+                        ><span data-i18n="doc2_span">Home contents · Receipt</span>
                       </div>
                       <span class="file-type">PDF</span>
                     </div>
                     <div class="policy-row">
                       <span class="policy-icon mint" data-icon="file"></span>
                       <div>
-                        <strong>Travel-booking.pdf</strong
-                        ><span>Travel · Supporting document</span>
+                        <strong data-i18n="doc3_strong">Travel-booking.pdf</strong
+                        ><span data-i18n="doc3_span">Travel · Supporting document</span>
                       </div>
                       <span class="file-type">PDF</span>
                     </div>
@@ -304,38 +334,38 @@
                 </div>
                 <div class="product-prompt">
                   <span class="sparkle" aria-hidden="true">✦</span
-                  ><span>Less searching. More understanding.</span>
+                  ><span data-i18n="product_prompt">Less searching. More understanding.</span>
                 </div>
               </div>
             </div>
             <div class="float-note note-bottom">
               <span class="round-icon lavender" data-icon="layers"></span>
               <div>
-                <strong>One place. A clearer picture.</strong
-                ><span>Built around the policies you have.</span>
+                <strong data-i18n="float_bottom_strong">One place. A clearer picture.</strong
+                ><span data-i18n="float_bottom_span">Built around the policies you have.</span>
               </div>
             </div>
-            <p class="demo-caption">
+            <p class="demo-caption" data-i18n="demo_caption">
               Illustrative product preview · Sample policies and dates
             </p>
           </div>
         </div>
         <div class="container trust-strip">
           <!-- <span><span data-icon="flag"></span> Built for Switzerland</span> -->
-          <span><span data-icon="shield"></span> We don&apos;t sell insurance</span
-          ><span><span data-icon="file"></span> Start with one policy</span
-          ><span><span data-icon="message"></span> Everyday language</span>
+          <span><span data-icon="shield"></span> <span data-i18n="trust_no_sell">We don&apos;t sell insurance</span></span
+          ><span><span data-icon="file"></span> <span data-i18n="trust_one_policy">Start with one policy</span></span
+          ><span><span data-icon="message"></span> <span data-i18n="trust_language">Everyday language</span></span>
         </div>
       </section>
 
       <section class="section clarity-section" id="your-cover">
         <div class="container">
           <div class="section-heading center">
-            <span class="eyebrow">A LITTLE LESS COMPLICATED</span>
+            <span class="eyebrow" data-i18n="clarity_eyebrow">A LITTLE LESS COMPLICATED</span>
             <h2>
-              Insurance is part of life.<br />Confusion shouldn&apos;t be.
+              <span data-i18n="clarity_h2_line1">Insurance is part of life.</span><br /><span data-i18n="clarity_h2_line2">Confusion shouldn&apos;t be.</span>
             </h2>
-            <p>
+            <p data-i18n="clarity_p">
               A policy in your inbox. Another in a folder. Important details
               everywhere.<br class="desktop-break" />
               Bring them together, and make room for a little peace of mind.
@@ -348,64 +378,64 @@
                 ><span class="paper paperdmiddle"></span
                 ><span class="paper paper-front"
                   ><span data-icon="file"></span><i></i><i></i
-                  ><b>All together.</b></span
+                  ><b data-i18n="card1_stack_title">All together.</b></span
                 >
               </div>
-              <span class="card-kicker">01 / ORGANISE</span>
-              <h3>Your policies.<br />One familiar place.</h3>
-              <p>
+              <span class="card-kicker" data-i18n="card1_kicker">01 / ORGANISE</span>
+              <h3><span data-i18n="card1_h3_line1">Your policies.</span><br /><span data-i18n="card1_h3_line2">One familiar place.</span></h3>
+              <p data-i18n="card1_p">
                 Keep your documents together, so finding the right policy
                 doesn&apos;t become another task.
               </p>
             </article>
             <article class="benefit-card peach-card">
               <div class="mini-chat" aria-hidden="true">
-                <span class="chat-question">What does my policy cover?</span
+                <span class="chat-question" data-i18n="card2_chat_question">What does my policy cover?</span
                 ><span class="chat-answer"
-                  ><span>✦</span> Let&apos;s make it clearer.<i></i><i></i
+                  ><span>✦</span> <span data-i18n="card2_chat_answer">Let&apos;s make it clearer.</span><i></i><i></i
                 ></span>
               </div>
-              <span class="card-kicker">02 / UNDERSTAND</span>
-              <h3>Less fine print.<br />More understanding.</h3>
-              <p>
+              <span class="card-kicker" data-i18n="card2_kicker">02 / UNDERSTAND</span>
+              <h3><span data-i18n="card2_h3_line1">Less fine print.</span><br /><span data-i18n="card2_h3_line2">More understanding.</span></h3>
+              <p data-i18n="card2_p">
                 Ask questions about your policies and explore the details in
                 everyday language.
               </p>
             </article>
             <article class="benefit-card mint-card">
               <div class="mini-calendar" aria-hidden="true">
-                <div>YOUR KEY DATES <span data-icon="calendar"></span></div>
+                <div><span data-i18n="card3_key_dates_title">YOUR KEY DATES</span> <span data-icon="calendar"></span></div>
                 <span class="calendar-line"
                   ><i></i><i></i><i></i><i></i><i></i></span
                 ><span class="calendar-line"
                   ><i></i><i></i><i class="selected">31</i><i></i><i></i></span
-                ><span class="calendar-label">Home policy renewal</span>
+                ><span class="calendar-label" data-i18n="card3_calendar_label">Home policy renewal</span>
               </div>
-              <span class="card-kicker">03 / KEEP TRACK</span>
-              <h3>A clearer view<br />of what&apos;s next.</h3>
-              <p>
+              <span class="card-kicker" data-i18n="card3_kicker">03 / KEEP TRACK</span>
+              <h3><span data-i18n="card3_h3_line1">A clearer view</span><br /><span data-i18n="card3_h3_line2">of what&apos;s next.</span></h3>
+              <p data-i18n="card3_p">
                 See renewal dates in one place, with time to check the details
                 before they come around.
               </p>
             </article>
             <article class="benefit-card blue-card">
               <div class="mini-vault" aria-hidden="true">
-                <div>YOUR VAULT <span data-icon="receipt"></span></div>
+                <div><span data-i18n="card4_vault_title">YOUR VAULT</span> <span data-icon="receipt"></span></div>
                 <div class="vault-ticket">
                   <div class="vault-ticket-header">
-                    <span>Hotel &amp; flight</span>
+                    <span data-i18n="card4_ticket_title">Hotel &amp; flight</span>
                     <strong>CHF 420</strong>
                   </div>
                   <div class="vault-bars">
                     <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
                   </div>
-                  <span class="vault-pill">✓ Saved &amp; protected</span>
+                  <span class="vault-pill" data-i18n="card4_vault_pill">✓ Saved &amp; protected</span>
                 </div>
-                <span class="vault-label">Receipts &amp; bookings ready</span>
+                <span class="vault-label" data-i18n="card4_vault_label">Receipts &amp; bookings ready</span>
               </div>
-              <span class="card-kicker">04 / VAULT</span>
-              <h3>A vault to store<br />bookings &amp; receipts.</h3>
-              <p>
+              <span class="card-kicker" data-i18n="card4_kicker">04 / VAULT</span>
+              <h3><span data-i18n="card4_h3_line1">A vault to store</span><br /><span data-i18n="card4_h3_line2">bookings &amp; receipts.</span></h3>
+              <p data-i18n="card4_p">
                 Keep your booking confirmations, invoices and receipts in one secure
                 space alongside your policies.
               </p>
@@ -417,9 +447,9 @@
       <section class="section how-section" id="how-it-works">
         <div class="container how-layout">
           <div class="how-copy">
-            <span class="eyebrow">SMALL START. BIGGER PICTURE.</span>
-            <h2>Start with one policy.<br />Take it from there.</h2>
-            <p class="section-intro">
+            <span class="eyebrow" data-i18n="how_eyebrow">SMALL START. BIGGER PICTURE.</span>
+            <h2><span data-i18n="how_h2_line1">Start with one policy.</span><br /><span data-i18n="how_h2_line2">Take it from there.</span></h2>
+            <p class="section-intro" data-i18n="how_intro">
               You don&apos;t need to organise your entire insurance life in one
               sitting.
             </p>
@@ -427,8 +457,8 @@
               <li>
                 <span class="step-number">1</span>
                 <div>
-                  <h3>Add a policy</h3>
-                  <p>
+                  <h3 data-i18n="step1_h3">Add a policy</h3>
+                  <p data-i18n="step1_p">
                     Upload a policy document. Start with the one you want to
                     understand better.
                   </p>
@@ -437,8 +467,8 @@
               <li>
                 <span class="step-number">2</span>
                 <div>
-                  <h3>Ask your questions</h3>
-                  <p>
+                  <h3 data-i18n="step2_h3">Ask your questions</h3>
+                  <p data-i18n="step2_p">
                     Explore what it covers, what it excludes and when it renews.
                   </p>
                 </div>
@@ -446,8 +476,8 @@
               <li>
                 <span class="step-number">3</span>
                 <div>
-                  <h3>Bring the rest together</h3>
-                  <p>
+                  <h3 data-i18n="step3_h3">Bring the rest together</h3>
+                  <p data-i18n="step3_p">
                     Add more policies and supporting documents when you&apos;re
                     ready.
                   </p>
@@ -459,8 +489,8 @@
             <div class="answer-heading">
               <span class="round-icon lavender" aria-hidden="true">✦</span>
               <div>
-                <strong>Good questions. Clearer answers.</strong
-                ><span>Explore an illustrative example</span>
+                <strong data-i18n="demo_heading_strong">Good questions. Clearer answers.</strong
+                ><span data-i18n="demo_heading_span">Explore an illustrative example</span>
               </div>
             </div>
             <div class="question-chips" aria-label="Choose an example question">
@@ -469,11 +499,11 @@
                 aria-pressed="true"
                 data-question="renewal"
               >
-                When does it renew?</button
+                <span data-i18n="chip_renewal">When does it renew?</span></button
               ><button aria-pressed="false" data-question="documents">
-                Where are my documents?</button
+                <span data-i18n="chip_documents">Where are my documents?</span></button
               ><button aria-pressed="false" data-question="next">
-                What should I check?
+                <span data-i18n="chip_next">What should I check?</span>
               </button>
             </div>
             <div class="conversation" aria-live="polite" aria-atomic="true">
@@ -498,8 +528,8 @@
               </div>
             </div>
             <div class="demo-footnote">
-              <span data-icon="info"></span> Sample conversation, not a live
-              policy assessment.
+              <span data-icon="info"></span> <span data-i18n="demo_footnote">Sample conversation, not a live
+              policy assessment.</span>
             </div>
           </div>
         </div>
@@ -510,42 +540,42 @@
           <div class="connected-visual">
             <div class="folder-top">
               <span data-icon="folder"></span
-              ><span>Everything connected to your cover</span>
+              ><span data-i18n="connected_folder_span">Everything connected to your cover</span>
             </div>
             <div class="connected-doc doc-one">
               <span class="policy-icon lavender" data-icon="home"></span>
-              <div><strong>Home contents</strong><span>Your policy</span></div>
+              <div><strong data-i18n="doc_one_strong">Home contents</strong><span data-i18n="doc_one_span">Your policy</span></div>
               <span class="document-dot"></span>
             </div>
             <div class="connector-line" aria-hidden="true"></div>
             <div class="connected-doc doc-two">
               <span class="policy-icon peach" data-icon="receipt"></span>
               <div>
-                <strong>Laptop receipt</strong
-                ><span>Your supporting document</span>
+                <strong data-i18n="doc_two_strong">Laptop receipt</strong
+                ><span data-i18n="doc_two_span">Your supporting document</span>
               </div>
               <span class="paperclip" data-icon="link"></span>
             </div>
             <div class="connected-caption">
-              <span aria-hidden="true">✓</span> The details you need, closer
-              together.
+              <span aria-hidden="true">✓</span> <span data-i18n="connected_caption">The details you need, closer
+              together.</span>
             </div>
           </div>
           <div class="connected-copy">
-            <span class="eyebrow">THINK BEYOND THE POLICY</span>
-            <h2>Life doesn&apos;t fit<br />in one PDF.</h2>
-            <p>
+            <span class="eyebrow" data-i18n="connected_eyebrow">THINK BEYOND THE POLICY</span>
+            <h2><span data-i18n="connected_h2_line1">Life doesn&apos;t fit</span><br /><span data-i18n="connected_h2_line2">in one PDF.</span></h2>
+            <p data-i18n="connected_p1">
               Neither does your insurance paperwork. Keep receipts for your
               belongings alongside home cover, and bookings next to travel
               insurance.
             </p>
-            <p>
+            <p data-i18n="connected_p2">
               When something happens, your policy details and supporting
               documents are easier to find.
             </p>
             <div class="category-tags">
-              <span>Home</span><span>Car</span><span>Travel</span
-              ><span>And more</span>
+              <span data-i18n="tag_home">Home</span><span data-i18n="tag_car">Car</span><span data-i18n="tag_travel">Travel</span
+              ><span data-i18n="tag_more">And more</span>
             </div>
           </div>
         </div>
@@ -564,14 +594,14 @@
             />
           </div>
           <div>
-            <span class="eyebrow">OUR PROMISE TO YOU</span>
-            <h2>Clarity.<br />Without the sales pitch.</h2>
-            <p>
+            <span class="eyebrow" data-i18n="promise_eyebrow">OUR PROMISE TO YOU</span>
+            <h2><span data-i18n="promise_h2_line1">Clarity.</span><br /><span data-i18n="promise_h2_line2">Without the sales pitch.</span></h2>
+            <p data-i18n="promise_p">
               MyPrism 360 doesn&apos;t sell insurance or recommend switching
               policies. We&apos;re building it to help you understand and
               organise the cover you already have.
             </p>
-            <span class="promise-signoff"
+            <span class="promise-signoff" data-i18n="promise_signoff"
               >Your policies. Your perspective. A clearer picture.</span
             >
           </div>
@@ -581,16 +611,16 @@
       <section class="section faq-section" id="faq">
         <div class="container faq-layout">
           <div>
-            <span class="eyebrow">GOOD TO KNOW</span>
-            <h2>A few answers,<br />before you start.</h2>
-            <p>We&apos;re still building. Here&apos;s what you can expect.</p>
+            <span class="eyebrow" data-i18n="faq_eyebrow">GOOD TO KNOW</span>
+            <h2><span data-i18n="faq_h2_line1">A few answers,</span><br /><span data-i18n="faq_h2_line2">before you start.</span></h2>
+            <p data-i18n="faq_intro">We&apos;re still building. Here&apos;s what you can expect.</p>
           </div>
           <div class="faq-list">
             <details open>
               <summary>
-                What is MyPrism 360?<span aria-hidden="true">+</span>
+                <span class="faq-question" data-i18n="faq1_q">What is MyPrism 360?</span><span class="faq-icon" aria-hidden="true">+</span>
               </summary>
-              <p>
+              <p data-i18n="faq1_a">
                 MyPrism 360 is being built to help you organise your insurance
                 policies, understand their details and keep track of renewal
                 dates—all in one place.
@@ -598,11 +628,11 @@
             </details>
             <details>
               <summary>
-                Is MyPrism 360 an insurance broker?<span aria-hidden="true"
+                <span class="faq-question" data-i18n="faq2_q">Is MyPrism 360 an insurance broker?</span><span class="faq-icon" aria-hidden="true"
                   >+</span
                 >
               </summary>
-              <p>
+              <p data-i18n="faq2_a">
                 No. MyPrism 360 doesn&apos;t sell insurance or recommend
                 switching policies. Its focus is helping you understand the
                 insurance you already have.
@@ -610,20 +640,20 @@
             </details>
             <details>
               <summary>
-                Do I need to add every policy at once?<span aria-hidden="true"
+                <span class="faq-question" data-i18n="faq3_q">Do I need to add every policy at once?</span><span class="faq-icon" aria-hidden="true"
                   >+</span
                 >
               </summary>
-              <p>
+              <p data-i18n="faq3_a">
                 No. Start with one policy you want to understand better. You can
                 bring the others together as you go.
               </p>
             </details>
             <details>
               <summary>
-                Who is it being built for?<span aria-hidden="true">+</span>
+                <span class="faq-question" data-i18n="faq4_q">Who is it being built for?</span><span class="faq-icon" aria-hidden="true">+</span>
               </summary>
-              <p>
+              <p data-i18n="faq4_a">
                 MyPrism 360 is being built for people in Switzerland who want a
                 clearer view of their insurance. Launch details will be shared
                 when the product is ready.
@@ -631,9 +661,9 @@
             </details>
             <details>
               <summary>
-                When can I use it?<span aria-hidden="true">+</span>
+                <span class="faq-question" data-i18n="faq5_q">When can I use it?</span><span class="faq-icon" aria-hidden="true">+</span>
               </summary>
-              <p>
+              <p data-i18n="faq5_a">
                 The product is still in development. Join the waitlist on the
                 current MyPrism 360 website to receive an email when it
                 launches.
@@ -641,11 +671,11 @@
             </details>
             <details>
               <summary>
-                Are the previews on this page live?<span aria-hidden="true"
+                <span class="faq-question" data-i18n="faq6_q">Are the previews on this page live?</span><span class="faq-icon" aria-hidden="true"
                   >+</span
                 >
               </summary>
-              <p>
+              <p data-i18n="faq6_a">
                 The previews show illustrative policies, dates and conversations
                 to explain the proposed experience. They do not process
                 documents or provide a live assessment of your insurance.
@@ -658,9 +688,9 @@
       <section class="section contact-section" id="contact">
         <div class="container contact-layout">
           <div class="contact-info">
-            <span class="eyebrow">GET IN TOUCH</span>
-            <h2>Questions, ideas or feedback?<br />We&apos;re listening.</h2>
-            <p class="section-intro">
+            <span class="eyebrow" data-i18n="contact_eyebrow">GET IN TOUCH</span>
+            <h2><span data-i18n="contact_h2_line1">Questions, ideas or feedback?</span><br /><span data-i18n="contact_h2_line2">We&apos;re listening.</span></h2>
+            <p class="section-intro" data-i18n="contact_intro">
               Whether you want to learn more about our Swiss launch, share what insurance clarity means to you, or explore collaboration opportunities, we&apos;d love to hear from you.
             </p>
 
@@ -670,7 +700,7 @@
                   <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                 </div>
                 <div>
-                  <strong>Email us directly</strong>
+                  <strong data-i18n="contact_card1_strong">Email us directly</strong>
                   <a href="mailto:hello@myprism360.ch" class="contact-link">hello@myprism360.ch</a>
                 </div>
               </div>
@@ -680,8 +710,8 @@
                   <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                 </div>
                 <div>
-                  <strong>Headquarters</strong>
-                  <span>Zurich, Switzerland</span>
+                  <strong data-i18n="contact_card2_strong">Headquarters</strong>
+                  <span data-i18n="contact_card2_span">Zurich, Switzerland</span>
                 </div>
               </div>
 
@@ -690,8 +720,8 @@
                   <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                 </div>
                 <div>
-                  <strong>Response time</strong>
-                  <span>Within 24 business hours</span>
+                  <strong data-i18n="contact_card3_strong">Response time</strong>
+                  <span data-i18n="contact_card3_span">Within 24 business hours</span>
                 </div>
               </div>
             </div>
@@ -705,61 +735,64 @@
                 </svg>
               </span>
               <div class="contact-feedback-content">
-                <strong>Message sent successfully!</strong>
-                <span>Thanks for reaching out. We&apos;ll be in touch within 24 business hours.</span>
+                <strong data-i18n="contact_feedback_strong">Message sent successfully!</strong>
+                <span data-i18n="contact_feedback_span">Thanks for reaching out. We&apos;ll be in touch within 24 business hours.</span>
               </div>
             </div>
             <form class="contact-form" id="contact-form" onsubmit="handleContactSubmit(event)">
               <div class="form-group">
-                <label for="contact-name">Your Name</label>
+                <label for="contact-name" data-i18n="form_name_label">Your Name</label>
                 <input
                   type="text"
                   id="contact-name"
                   name="name"
                   class="contact-input"
                   placeholder="e.g. Marc Rossi"
+                  data-i18n-placeholder="form_name_placeholder"
                   required
                 />
               </div>
 
               <div class="form-group">
-                <label for="contact-email">Email Address</label>
+                <label for="contact-email" data-i18n="form_email_label">Email Address</label>
                 <input
                   type="email"
                   id="contact-email"
                   name="email"
                   class="contact-input"
                   placeholder="name@example.ch"
+                  data-i18n-placeholder="form_email_placeholder"
                   required
                   autocomplete="email"
                 />
               </div>
 
               <div class="form-group">
-                <label for="contact-topic">Topic</label>
+                <label for="contact-topic" data-i18n="form_topic_label">Topic</label>
                 <div class="select-wrapper">
                   <select id="contact-topic" name="topic" class="contact-input contact-select">
-                    <option value="General question">General question</option>
-                    <option value="Product feedback">Product feedback</option>
-                    <option value="Swiss launch inquiry">Swiss launch inquiry</option>
-                    <option value="Partnership / Press">Partnership / Press</option>
+                    <option value="General question" data-i18n-opt="form_topic_opt1">General question</option>
+                    <option value="Product feedback" data-i18n-opt="form_topic_opt2">Product feedback</option>
+                    <option value="Swiss launch inquiry" data-i18n-opt="form_topic_opt3">Swiss launch inquiry</option>
+                    <option value="Partnership / Press" data-i18n-opt="form_topic_opt4">Partnership / Press</option>
                   </select>
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="contact-message">Message</label>
+                <label for="contact-message" data-i18n="form_message_label">Message</label>
                 <textarea
                   id="contact-message"
                   name="message"
                   class="contact-input contact-textarea"
                   rows="4"
                   placeholder="Tell us what you&apos;d like to discuss..."
+                  data-i18n-placeholder="form_message_placeholder"
                   required
                 ></textarea>
               </div>
 
-              <button type="submit" class="button button-contact">
+              <button type="submit" class="button button-contact" data-i18n="form_submit_btn">
                 Send message
               </button>
             </form>
@@ -776,10 +809,10 @@
               <span class="status-dot" aria-hidden="true"></span> LAUNCHING IN
               SWITZERLAND
             </div> -->
-            <h2>A little less paperwork.<br />A lot more clarity.</h2>
+            <h2><span data-i18n="waitlist_h2_line1">A little less paperwork.</span><br /><span data-i18n="waitlist_h2_line2">A lot more clarity.</span></h2>
             <p>
-              Be there when MyPrism 360 launches.<br />Join the waitlist for a
-              clearer view of your insurance.
+              <span data-i18n="waitlist_p1">Be there when MyPrism 360 launches.</span><br /><span data-i18n="waitlist_p2">Join the waitlist for a
+              clearer view of your insurance.</span>
             </p>
             <form
               class="hero-waitlist-group waitlist-panel-group"
@@ -792,17 +825,19 @@
                 id="bottom-email"
                 name="email"
                 placeholder="Enter your email address"
+                data-i18n-placeholder="waitlist_email_placeholder"
                 required
                 aria-label="Email address to join the waitlist"
+                data-i18n-aria-label="waitlist_email_label"
                 autocomplete="email"
               />
-              <button type="submit" class="button button-waitlist">
+              <button type="submit" class="button button-waitlist" data-i18n="waitlist_btn">
                 Join the waitlist
               </button>
             </form>
             <span class="waitlist-note"
-              >Continue to MyPrism 360 to sign up.<br />One email when we
-              launch. No marketing emails.</span
+              ><span data-i18n="waitlist_note_line1">Continue to MyPrism 360 to sign up.</span><br /><span data-i18n="waitlist_note_line2">One email when we
+              launch. No marketing emails.</span></span
             >
           </div>
         </div>
@@ -819,11 +854,12 @@
             height="40"
           /><span>MyPrism<span class="brand-360">360</span></span></a
         >
-        <p>A clearer view of the insurance you already have.</p>
+        <p data-i18n="footer_tagline">A clearer view of the insurance you already have.</p>
       </div>
       <div class="container footer-bottom">
         <span>© <span id="year">2026</span> MyPrism 360</span
         ><span
+        ><span data-i18n="footer_disclaimer"
           >Not an insurance broker. We don&apos;t sell or advise on
           policies.</span
         >

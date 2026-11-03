@@ -75,38 +75,180 @@ tabs.forEach((tab, index) => {
     tabs[next].focus();
   });
 });
-const examples = {
-  renewal: {
-    question: "When does my home policy renew?",
-    answer:
-      "The renewal date in this sample policy is <strong>31 December 2026</strong>. Check the policy’s notice period before making any changes.",
-    source: "Home-policy.pdf · Example document",
-  },
-  documents: {
-    question: "Where is the receipt for my laptop?",
-    answer:
-      "In this example, <strong>Laptop-receipt.pdf</strong> is stored alongside the home contents policy, so the policy and supporting paperwork are easy to find together.",
-    source: "Laptop-receipt.pdf · Example document",
-  },
-  next: {
-    question: "What should I check before renewal?",
-    answer:
-      "Start with the <strong>renewal date and notice period</strong> shown in your policy. Review its terms and contact your insurer if you need to clarify any details.",
-    source: "Illustrative checklist · Check your policy terms",
-  },
-};
+// Language & Translations
+let currentLang = localStorage.getItem("prism-lang") || "en";
+let translations = {};
+
+let activeQuestionKey = "renewal";
+
+function getExample(key, lang = currentLang) {
+  const t = translations[lang] || translations.en;
+  if (!t) {
+    const defaults = {
+      renewal: {
+        question: "When does my home policy renew?",
+        answer: "The renewal date in this sample policy is <strong>31 December 2026</strong>. Check the policy’s notice period before making any changes.",
+        source: "Home-policy.pdf · Example document",
+      },
+      documents: {
+        question: "Where is the receipt for my laptop?",
+        answer: "In this example, <strong>Laptop-receipt.pdf</strong> is stored alongside the home contents policy, so the policy and supporting paperwork are easy to find together.",
+        source: "Laptop-receipt.pdf · Example document",
+      },
+      next: {
+        question: "What should I check before renewal?",
+        answer: "Start with the <strong>renewal date and notice period</strong> shown in your policy. Review its terms and contact your insurer if you need to clarify any details.",
+        source: "Illustrative checklist · Check your policy terms",
+      },
+    };
+    return defaults[key] || defaults.renewal;
+  }
+  if (key === "renewal") {
+    return {
+      question: t.q_renewal,
+      answer: t.a_renewal,
+      source: t.src_renewal,
+    };
+  } else if (key === "documents") {
+    return {
+      question: t.q_documents,
+      answer: t.a_documents,
+      source: t.src_documents,
+    };
+  } else if (key === "next") {
+    return {
+      question: t.q_next,
+      answer: t.a_next,
+      source: t.src_next,
+    };
+  }
+  return null;
+}
+
+function updateActiveExample() {
+  const example = getExample(activeQuestionKey, currentLang);
+  if (!example) return;
+
+  const qEl = document.getElementById("sample-question");
+  const aEl = document.getElementById("sample-answer");
+  const sEl = document.getElementById("sample-source");
+
+  if (qEl) qEl.textContent = example.question;
+  if (aEl) aEl.innerHTML = example.answer;
+  if (sEl) sEl.textContent = example.source;
+}
+
 document.querySelectorAll("[data-question]").forEach((button) =>
   button.addEventListener("click", () => {
-    const example = examples[button.dataset.question];
+    activeQuestionKey = button.dataset.question;
     document.querySelectorAll("[data-question]").forEach((item) => {
-      item.classList.toggle("active", item === button);
-      item.setAttribute("aria-pressed", String(item === button));
+      const isAct = item === button;
+      item.classList.toggle("active", isAct);
+      item.setAttribute("aria-pressed", String(isAct));
     });
-    document.getElementById("sample-question").textContent = example.question;
-    document.getElementById("sample-answer").innerHTML = example.answer;
-    document.getElementById("sample-source").textContent = example.source;
+    updateActiveExample();
   }),
 );
+
+function applyTranslations(lang) {
+  const t = translations[lang];
+  if (!t) return;
+
+  document.documentElement.setAttribute("lang", lang);
+
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    if (t[key] !== undefined) {
+      el.innerHTML = t[key];
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (t[key] !== undefined) {
+      el.placeholder = t[key];
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (t[key] !== undefined) {
+      el.setAttribute("aria-label", t[key]);
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-title");
+    if (t[key] !== undefined) {
+      el.setAttribute("title", t[key]);
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-opt]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-opt");
+    if (t[key] !== undefined) {
+      el.textContent = t[key];
+    }
+  });
+
+  // Update Language Toggle Button UI
+  const langToggle = document.getElementById("lang-toggle");
+  const flagEn = document.querySelector(".lang-flag-en");
+  const flagDe = document.querySelector(".lang-flag-de");
+  const langLabel = document.getElementById("lang-label");
+
+  if (lang === "en") {
+    if (flagEn) flagEn.style.display = "none";
+    if (flagDe) flagDe.style.display = "inline-flex";
+    if (langLabel) langLabel.textContent = "DE";
+    if (langToggle) {
+      const toggleTitle = t.lang_toggle_title_de || "Auf Englisch wechseln";
+      langToggle.setAttribute("title", toggleTitle);
+      langToggle.setAttribute("aria-label", toggleTitle);
+    }
+  } else {
+    if (flagEn) flagEn.style.display = "inline-flex";
+    if (flagDe) flagDe.style.display = "none";
+    if (langLabel) langLabel.textContent = "EN";
+    if (langToggle) {
+      const toggleTitle = t.lang_toggle_title_en || "Switch to German";
+      langToggle.setAttribute("title", toggleTitle);
+      langToggle.setAttribute("aria-label", toggleTitle);
+    }
+  }
+
+  updateActiveExample();
+}
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem("prism-lang", lang);
+  applyTranslations(lang);
+}
+
+// Language toggle click handler
+const langToggleBtn = document.getElementById("lang-toggle");
+if (langToggleBtn) {
+  langToggleBtn.addEventListener("click", () => {
+    const nextLang = currentLang === "en" ? "de" : "en";
+    setLanguage(nextLang);
+  });
+}
+
+// Load translations from JSON file
+async function initTranslations() {
+  try {
+    const res = await fetch("translations.json");
+    if (res.ok) {
+      translations = await res.json();
+    }
+  } catch (err) {
+    console.warn("Could not fetch translations.json (e.g. running locally without server), using fallback:", err);
+  }
+  applyTranslations(currentLang);
+}
+
+initTranslations();
 document.getElementById("year").textContent = String(new Date().getFullYear());
 
 // Theme toggle logic
@@ -211,10 +353,12 @@ async function handleWaitlistSubmit(event, inputId) {
   const button = form ? form.querySelector("button[type='submit']") : null;
 
   const originalBtnContent = button ? button.innerHTML : "";
+  const t = translations[currentLang] || {};
+  const submittingWaitlistText = t.waitlist_submitting || (currentLang === "de" ? "Wird eingetragen..." : "Joining...");
 
   if (button) {
     button.disabled = true;
-    button.innerHTML = `<span class="button-loading"><span class="button-spinner" aria-hidden="true"></span><span>Joining...</span></span>`;
+    button.innerHTML = `<span class="button-loading"><span class="button-spinner" aria-hidden="true"></span><span>${submittingWaitlistText}</span></span>`;
   }
 
   try {
@@ -244,7 +388,9 @@ async function handleWaitlistSubmit(event, inputId) {
     }
 
     // Show success toast
-    showToast("You're on the waitlist!", "We'll notify you when MyPrism 360 launches.");
+    const toastTitle = t.toast_title || (currentLang === "de" ? "Sie sind auf der Warteliste!" : "You're on the waitlist!");
+    const toastMsg = t.toast_message || (currentLang === "de" ? "Wir benachrichtigen Sie, wenn MyPrism 360 startet." : "We'll notify you when MyPrism 360 launches.");
+    showToast(toastTitle, toastMsg);
 
     input.value = "";
   } catch (error) {
@@ -275,6 +421,8 @@ async function handleContactSubmit(event) {
 
   const button = form.querySelector("button[type='submit']");
   const originalBtnContent = button ? button.innerHTML : "";
+  const t = translations[currentLang] || {};
+  const submittingContactText = t.contact_submitting || (currentLang === "de" ? "Nachricht wird gesendet..." : "Sending message...");
 
   const name = nameInput ? nameInput.value.trim() : "";
   const email = emailInput ? emailInput.value.trim() : "";
@@ -287,7 +435,7 @@ async function handleContactSubmit(event) {
 
   if (button) {
     button.disabled = true;
-    button.innerHTML = `<span class="button-loading"><span class="button-spinner" aria-hidden="true"></span><span>Sending message...</span></span>`;
+    button.innerHTML = `<span class="button-loading"><span class="button-spinner" aria-hidden="true"></span><span>${submittingContactText}</span></span>`;
   }
 
   try {

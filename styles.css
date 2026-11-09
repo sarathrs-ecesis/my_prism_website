@@ -739,7 +739,7 @@ h3 {
   gap: 10px;
   border-bottom: 1px solid #efedf5;
   padding: 16px 20px;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .sample-badge {
@@ -2640,35 +2640,36 @@ h3 {
   }
 
   .benefit-card {
-    padding: 14px 14px 12px;
-    border-radius: 12px;
+    padding: 18px 15px 16px;
+    border-radius: 14px;
     display: grid;
-    grid-template-columns: 1fr 95px;
-    column-gap: 8px;
+    grid-template-columns: minmax(0, 1fr) 120px;
+    column-gap: 12px;
     align-items: start;
   }
 
   .benefit-card .card-kicker {
     grid-column: 1;
     grid-row: 1;
-    margin-top: 2px;
-    font-size: 8px;
+    margin: 0 0 3px;
+    font-size: 9px;
+    letter-spacing: 1.3px;
   }
 
   .benefit-card h3 {
     grid-column: 1;
     grid-row: 2;
     font-size: 19px;
-    line-height: 1.2;
-    margin: 6px 0 6px;
+    line-height: 1.25;
+    margin: 3px 0 0;
   }
 
   .benefit-card p {
     grid-column: 1 / -1;
     max-width: 100%;
-    font-size: 12.5px;
+    font-size: 12.8px;
     line-height: 1.55;
-    margin-top: 2px;
+    margin-top: 13px;
   }
 
   .mini-stack,
@@ -2677,39 +2678,145 @@ h3 {
   .mini-vault {
     grid-column: 2;
     grid-row: 1 / 3;
-    transform: scale(0.6);
+    justify-self: end;
     transform-origin: top right;
-    width: 150px;
     max-width: none;
     margin: 0;
-    height: 105px;
+    pointer-events: none;
   }
 
   .mini-stack {
+    width: 124px;
+    height: 122px;
+    transform: scale(0.74);
+    position: relative;
+    margin-bottom: -36px;
+  }
+
+  .mini-chat {
+    width: 168px;
+    height: 86px;
+    transform: scale(0.70);
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+  }
+
+  .mini-chat .chat-question {
+    width: 168px;
+    font-size: 9.5px;
+    padding: 6px 9px;
     margin-left: 0;
+    box-sizing: border-box;
+  }
+
+  .mini-chat .chat-answer {
+    width: 168px;
+    font-size: 9.5px;
+    padding: 7px 9px;
+    left: 0;
+    top: 30px;
+    box-sizing: border-box;
+  }
+
+  .mini-chat .chat-answer > span {
+    font-size: 11.5px;
+    margin-right: 4px;
+  }
+
+  .mini-chat .chat-answer i {
+    height: 2px;
+    width: 112px;
+    margin-top: 5px;
+  }
+
+  .mini-chat .chat-answer i:last-child {
+    width: 78px;
   }
 
   .mini-calendar,
   .mini-vault {
-    width: 150px;
-    transform: scale(0.6) rotate(0deg);
+    width: 160px;
+    height: 122px;
+    padding: 11px 13px;
+    transform: scale(0.72) rotate(0deg);
+    transform-origin: top right;
     margin-top: 0;
+    margin-bottom: -36px;
+    box-sizing: border-box;
   }
 
-  .mini-chat {
-    margin-top: 0;
+  .mini-calendar > div {
+    font-size: 8.5px;
   }
 
-  .paper-back {
-    left: 10px;
+  .mini-calendar .calendar-line {
+    margin-top: 8px;
   }
 
-  .paper-middle {
-    left: 36px;
+  .mini-calendar .calendar-line i {
+    width: 19px;
+    height: 19px;
+    font-size: 9.5px;
   }
 
-  .paper-front {
-    left: 24px;
+  .mini-calendar .calendar-label {
+    font-size: 9.5px;
+    margin-top: 8px;
+    display: block;
+  }
+
+  .mini-vault > div:first-child {
+    font-size: 8.5px;
+  }
+
+  .mini-vault .vault-ticket {
+    margin-top: 7px;
+    padding: 6px 8px;
+  }
+
+  .mini-vault .vault-ticket-header {
+    font-size: 9px;
+  }
+
+  .mini-vault .vault-ticket-header strong {
+    font-size: 9.5px;
+  }
+
+  .mini-vault .vault-status {
+    font-size: 8.5px;
+  }
+
+  .mini-vault .vault-caption {
+    font-size: 9.5px;
+    margin-top: 6px;
+    display: block;
+  }
+
+  .mini-stack .paper {
+    width: 90px;
+    height: 104px;
+  }
+
+  .mini-stack .paper-back {
+    left: 4px;
+    top: 0;
+  }
+
+  .mini-stack .paper-middle {
+    left: 28px;
+    top: 7px;
+  }
+
+  .mini-stack .paper-front {
+    left: 16px;
+    top: 15px;
+    padding: 13px 11px;
+  }
+
+  .mini-stack .paper-front b {
+    font-size: 11.5px;
   }
 
   .how-section {
@@ -3084,21 +3191,43 @@ h3 {
   }
 
   .benefit-card {
-    padding: 14px 12px;
-    grid-template-columns: 1fr 85px;
+    padding: 16px 13px 14px;
+    grid-template-columns: minmax(0, 1fr) 105px;
+    column-gap: 8px;
   }
 
   .benefit-card h3 {
-    font-size: 18px;
+    font-size: 17px;
+    margin: 2px 0 0;
+  }
+
+  .benefit-card p {
+    font-size: 12px;
+    margin-top: 11px;
   }
 
   .mini-stack,
   .mini-chat,
   .mini-calendar,
   .mini-vault {
-    transform: scale(0.52);
-    height: 95px;
-    width: 140px;
+    justify-self: end;
+    transform-origin: top right;
+  }
+
+  .mini-stack {
+    transform: scale(0.66);
+    margin-bottom: -40px;
+  }
+
+  .mini-chat {
+    transform: scale(0.62);
+    margin-bottom: -6px;
+  }
+
+  .mini-calendar,
+  .mini-vault {
+    transform: scale(0.64) rotate(0deg);
+    margin-bottom: -44px;
   }
 
   .launch {
@@ -3222,36 +3351,38 @@ h3 {
   left: -14px;
 }
 
-.paper-back {
-  left: 31px;
-  top: 2px;
-}
+@media (min-width: 851px) {
+  .paper-back {
+    left: 31px;
+    top: 2px;
+  }
 
-.paper-middle {
-  left: 69px;
-  top: 12px;
-}
+  .paper-middle {
+    left: 69px;
+    top: 12px;
+  }
 
-.paper-front {
-  left: 50px;
-  top: 21px;
-}
+  .paper-front {
+    left: 50px;
+    top: 21px;
+  }
 
-.mini-stack {
-  height: 155px;
-}
+  .mini-stack {
+    height: 155px;
+  }
 
-.mini-chat {
-  height: 155px;
-}
+  .mini-chat {
+    height: 155px;
+  }
 
-.mini-calendar,
-.mini-vault {
-  margin-bottom: 42px;
-}
+  .mini-calendar,
+  .mini-vault {
+    margin-bottom: 42px;
+  }
 
-.chat-answer {
-  top: 65px;
+  .chat-answer {
+    top: 65px;
+  }
 }
 
 .hero-actions .button:hover,
@@ -3259,7 +3390,7 @@ h3 {
   transform: none;
 }
 
-@media (max-width: 850px) {
+@media (min-width: 621px) and (max-width: 850px) {
   .mini-stack,
   .mini-chat,
   .mini-calendar,
@@ -3303,25 +3434,6 @@ h3 {
   .note-bottom {
     bottom: 2px;
     left: 6px;
-  }
-
-  .mini-stack,
-  .mini-chat,
-  .mini-calendar,
-  .mini-vault {
-    height: 105px;
-  }
-
-  .paper-back {
-    left: 10px;
-  }
-
-  .paper-middle {
-    left: 36px;
-  }
-
-  .paper-front {
-    left: 24px;
   }
 
   .footer-main .brand-logo {

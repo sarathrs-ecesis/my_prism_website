@@ -189,7 +189,11 @@
     "lang_toggle_title_en": "Switch to German",
     "lang_toggle_title_de": "Switch to English",
     "waitlist_submitting": "Joining...",
-    "contact_submitting": "Sending message..."
+    "contact_submitting": "Sending message...",
+    "footer_privacy": "Privacy Policy",
+    "policy_nav_title": "Privacy Policy",
+    "policy_back_home": "Back to Home",
+    "policy_toc_title": "Contents"
   },
   "de": {
     "skip_link": "Zum Inhalt springen",
@@ -381,7 +385,10 @@
     "lang_toggle_title_en": "Auf Deutsch wechseln",
     "lang_toggle_title_de": "Auf Englisch wechseln",
     "waitlist_submitting": "Wird eingetragen...",
-    "contact_submitting": "Nachricht wird gesendet..."
+    "contact_submitting": "Nachricht wird gesendet...",
+    "footer_privacy": "Datenschutzerklärung",
+    "policy_nav_title": "Datenschutzerklärung",
+    "policy_back_home": "Zurück zur Startseite",
+    "policy_toc_title": "Inhalt"
   }
 }
-

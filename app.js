@@ -26,28 +26,32 @@ document.querySelectorAll("[data-icon]").forEach((el) => {
 const menuButton = document.querySelector(".menu-toggle");
 const nav = document.getElementById("main-nav");
 function closeMenu() {
-  nav.classList.remove("open");
-  menuButton.setAttribute("aria-expanded", "false");
-  menuButton.setAttribute("aria-label", "Open navigation");
-}
-menuButton.addEventListener("click", () => {
-  const expanded = menuButton.getAttribute("aria-expanded") === "true";
-  nav.classList.toggle("open", !expanded);
-  menuButton.setAttribute("aria-expanded", String(!expanded));
-  menuButton.setAttribute(
-    "aria-label",
-    expanded ? "Open navigation" : "Close navigation",
-  );
-});
-nav
-  .querySelectorAll("a")
-  .forEach((link) => link.addEventListener("click", closeMenu));
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && nav.classList.contains("open")) {
-    closeMenu();
-    menuButton.focus();
+  if (nav && menuButton) {
+    nav.classList.remove("open");
+    menuButton.setAttribute("aria-expanded", "false");
+    menuButton.setAttribute("aria-label", "Open navigation");
   }
-});
+}
+if (menuButton && nav) {
+  menuButton.addEventListener("click", () => {
+    const expanded = menuButton.getAttribute("aria-expanded") === "true";
+    nav.classList.toggle("open", !expanded);
+    menuButton.setAttribute("aria-expanded", String(!expanded));
+    menuButton.setAttribute(
+      "aria-label",
+      expanded ? "Open navigation" : "Close navigation",
+    );
+  });
+  nav
+    .querySelectorAll("a")
+    .forEach((link) => link.addEventListener("click", closeMenu));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && nav.classList.contains("open")) {
+      closeMenu();
+      menuButton.focus();
+    }
+  });
+}
 const tabs = Array.from(
   document.querySelectorAll('.product-tabs [role="tab"]'),
 );
@@ -223,8 +227,16 @@ function applyTranslations(lang) {
 function setLanguage(lang) {
   currentLang = lang;
   localStorage.setItem("prism-lang", lang);
+  document.documentElement.setAttribute("lang", lang);
+
+  document.querySelectorAll("[data-policy-lang]").forEach((btn) => {
+    btn.classList.toggle("active", btn.dataset.policyLang === lang);
+  });
+
   applyTranslations(lang);
 }
+
+window.setLanguage = setLanguage;
 
 // Language toggle click handler
 const langToggleBtn = document.getElementById("lang-toggle");
@@ -234,6 +246,14 @@ if (langToggleBtn) {
     setLanguage(nextLang);
   });
 }
+
+// In-page language buttons (e.g. on Privacy Policy page)
+document.querySelectorAll("[data-policy-lang]").forEach((btn) => {
+  btn.classList.toggle("active", btn.dataset.policyLang === currentLang);
+  btn.addEventListener("click", () => {
+    setLanguage(btn.dataset.policyLang);
+  });
+});
 
 // Load translations from JSON file
 async function initTranslations() {
@@ -249,7 +269,10 @@ async function initTranslations() {
 }
 
 initTranslations();
-document.getElementById("year").textContent = String(new Date().getFullYear());
+const yearElement = document.getElementById("year");
+if (yearElement) {
+  yearElement.textContent = String(new Date().getFullYear());
+}
 
 // Theme toggle logic
 const themeToggle = document.getElementById("theme-toggle");
